@@ -1,0 +1,42 @@
+{
+  "root_directory": ".",
+  "output_file": "output/documentation.json",
+  "exclude_patterns": [
+    "node_modules/**",
+    "venv/**",
+    "env/**",
+    "__pycache__/**",
+    "*.min.js",
+    "*.min.css",
+    "dist/**",
+    "build/**",
+    ".git/**",
+    ".vscode/**",
+    "*.pyc",
+    "*.pyo",
+    "*.egg-info/**",
+    "coverage/**",
+    ".pytest_cache/**"
+  ],
+  "include_extensions": [
+    ".py",
+    ".js",
+    ".ts",
+    ".jsx",
+    ".tsx",
+    ".java",
+    ".c",
+    ".cpp",
+    ".h",
+    ".hpp",
+    ".cc",
+    ".cxx"
+  ],
+  "max_file_size_mb": 10,
+  "follow_symlinks": false,
+  "extract_imports": true,
+  "calculate_coverage": true,
+  "verbose_logging": true,
+  "parallel_processing": false,
+  "max_workers": 4
+}
