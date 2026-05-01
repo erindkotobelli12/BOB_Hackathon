@@ -3,8 +3,8 @@
 import logging
 from pathlib import Path
 from typing import Dict, Any, Optional
-from ..core.detector import LanguageDetector
-from ..parsers import (
+from core.detector import LanguageDetector
+from parsers import (
     PythonParser,
     JavaScriptParser,
     JavaParser,

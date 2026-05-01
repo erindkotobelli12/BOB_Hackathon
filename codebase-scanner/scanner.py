@@ -9,6 +9,7 @@ from typing import Dict, Any
 from core.walker import DirectoryWalker
 from core.extractor import MetadataExtractor
 from formatters.json_formatter import JSONFormatter
+from formatters.markdown_formatter import MarkdownFormatter
 from utils.logger import setup_logger, log_scan_summary
 
 
@@ -30,12 +31,13 @@ def load_config(config_path: Path) -> Dict[str, Any]:
         sys.exit(1)
 
 
-def scan_codebase(config: Dict[str, Any]) -> None:
+def scan_codebase(config: Dict[str, Any], output_format: str = 'json') -> None:
     """
     Scan codebase and generate documentation metadata.
     
     Args:
         config: Configuration dictionary
+        output_format: Output format ('json', 'markdown', or 'both')
     """
     # Setup logger
     logger = setup_logger(
@@ -80,10 +82,25 @@ def scan_codebase(config: Dict[str, Any]) -> None:
         coverage_report=coverage_report
     )
     
-    # Save to file
+    # Save to file(s) based on format
     output_path = Path(config.get('output_file', 'output/documentation.json'))
-    logger.info(f"Saving results to: {output_path}")
-    JSONFormatter.save(output_data, output_path)
+    md_output_path = output_path.with_suffix('.md')
+    
+    if output_format in ('json', 'both'):
+        logger.info(f"Saving JSON results to: {output_path}")
+        JSONFormatter.save(output_data, output_path)
+    
+    if output_format in ('markdown', 'both'):
+        logger.info(f"Generating Markdown documentation...")
+        
+        markdown_content = MarkdownFormatter.format(
+            files_data=files_data,
+            root_directory=str(root_dir),
+            coverage_report=coverage_report
+        )
+        
+        logger.info(f"Saving Markdown results to: {md_output_path}")
+        MarkdownFormatter.save(markdown_content, md_output_path)
     
     # Log summary
     stats = {
@@ -95,7 +112,12 @@ def scan_codebase(config: Dict[str, Any]) -> None:
     }
     log_scan_summary(logger, stats)
     
-    logger.info(f"Scan complete! Results saved to: {output_path}")
+    if output_format == 'both':
+        logger.info(f"Scan complete! Results saved to: {output_path} and {md_output_path}")
+    elif output_format == 'markdown':
+        logger.info(f"Scan complete! Results saved to: {md_output_path}")
+    else:
+        logger.info(f"Scan complete! Results saved to: {output_path}")
 
 
 def main():
@@ -116,6 +138,12 @@ Examples:
   
   # Override output file
   python scanner.py --output results.json
+  
+  # Generate markdown documentation
+  python scanner.py --format markdown
+  
+  # Generate both JSON and Markdown
+  python scanner.py --format both
   
   # Specify languages to scan
   python scanner.py --languages python,javascript
@@ -145,6 +173,14 @@ Examples:
         '--languages',
         type=str,
         help='Comma-separated list of languages to scan (e.g., python,javascript)'
+    )
+    
+    parser.add_argument(
+        '--format',
+        type=str,
+        choices=['json', 'markdown', 'both'],
+        default='json',
+        help='Output format: json (default), markdown, or both'
     )
     
     parser.add_argument(
@@ -232,7 +268,7 @@ Examples:
     
     # Run scan
     try:
-        scan_codebase(config)
+        scan_codebase(config, output_format=args.format)
     except KeyboardInterrupt:
         print("\nScan interrupted by user")
         sys.exit(1)

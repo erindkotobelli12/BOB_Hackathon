@@ -3,7 +3,7 @@
 import logging
 from pathlib import Path
 from typing import List, Iterator
-from ..utils.filters import should_exclude_path, matches_extension, get_file_size_mb, is_binary_file
+from utils.filters import should_exclude_path, matches_extension, get_file_size_mb, is_binary_file
 
 
 class DirectoryWalker:

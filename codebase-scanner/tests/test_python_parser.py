@@ -113,8 +113,11 @@ from pathlib import Path
         parser = PythonParser(file_path)
         result = parser.parse()
         
-        self.assertEqual(len(result['imports']), 3)
+        # Parser extracts each imported name separately, so List and Dict are counted separately
+        self.assertEqual(len(result['imports']), 4)
         self.assertIn('import os', result['imports'])
+        self.assertIn('from typing import List', result['imports'])
+        self.assertIn('from typing import Dict', result['imports'])
     
     def test_documentation_coverage(self):
         """Test documentation coverage calculation."""
@@ -132,6 +135,21 @@ def undocumented():
         
         # 1 out of 2 functions documented = 50%
         self.assertEqual(result['documentation_coverage'], 50.0)
+    
+    def test_no_docstring_function(self):
+        """Test documentation coverage with no docstring."""
+        content = '''
+def undocumented_only():
+    pass
+'''
+        file_path = self.create_temp_file('test.py', content)
+        parser = PythonParser(file_path)
+        result = parser.parse()
+        
+        # 0 out of 1 function documented = 0%
+        self.assertEqual(result['documentation_coverage'], 0.0)
+        self.assertEqual(len(result['functions']), 1)
+        self.assertIsNone(result['functions'][0]['docstring'])
     
     def test_syntax_error(self):
         """Test handling of syntax errors."""

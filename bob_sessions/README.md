@@ -5,7 +5,7 @@ This directory tracks all BOB AI assistant sessions, including conversation hist
 ## Directory Structure
 
 ```
-bob_session/
+bob_sessions/
 ├── README.md           # This file
 ├── screenshots/        # Screenshots and visual documentation
 └── task_history/       # Session logs and conversation history
@@ -50,14 +50,14 @@ The `screenshots/` folder contains visual documentation such as:
 ### Reviewing Past Sessions
 ```bash
 # View today's session
-cat bob_session/task_history/session_2026-05-01.md
+cat bob_sessions/task_history/session_2026-05-01.md
 
 # List all sessions
-ls bob_session/task_history/
+ls bob_sessions/task_history/
 ```
 
 ### Adding Screenshots
-Save screenshots to `bob_session/screenshots/` with descriptive names:
+Save screenshots to `bob_sessions/screenshots/` with descriptive names:
 - `scanner-output-2026-05-01.png`
 - `coverage-report-example.png`
 - `config-file-setup.png`

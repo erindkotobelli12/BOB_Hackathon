@@ -1,0 +1,3185 @@
+{
+  "scan_metadata": {
+    "timestamp": "2026-05-01T16:01:38.495970Z",
+    "root_directory": "C:\\Users\\I.C.T\\OneDrive\\Documents\\git\\BOB_Hackathon\\codebase-scanner",
+    "total_files": 24,
+    "total_functions": 9,
+    "total_classes": 14,
+    "languages_detected": [
+      "python"
+    ]
+  },
+  "files": [
+    {
+      "path": "C:\\Users\\I.C.T\\OneDrive\\Documents\\git\\BOB_Hackathon\\codebase-scanner\\core\\__init__.py",
+      "size_bytes": 260,
+      "line_count": 9,
+      "language": "python",
+      "classes": [],
+      "functions": [],
+      "imports": [
+        "from walker import DirectoryWalker",
+        "from detector import LanguageDetector",
+        "from extractor import MetadataExtractor"
+      ],
+      "documentation_coverage": 100.0
+    },
+    {
+      "path": "C:\\Users\\I.C.T\\OneDrive\\Documents\\git\\BOB_Hackathon\\codebase-scanner\\core\\detector.py",
+      "size_bytes": 3499,
+      "line_count": 121,
+      "language": "python",
+      "classes": [
+        {
+          "name": "LanguageDetector",
+          "line_start": 7,
+          "line_end": 119,
+          "docstring": "Detects programming language from file extensions and content.",
+          "methods": [
+            {
+              "name": "detect_language",
+              "line_start": 48,
+              "line_end": 69,
+              "parameters": [
+                {
+                  "name": "cls",
+                  "type": null,
+                  "default": null
+                },
+                {
+                  "name": "file_path",
+                  "type": "Path",
+                  "default": null
+                }
+              ],
+              "return_type": "Optional[str]",
+              "docstring": "Detect the programming language of a file.\n\nArgs:\n    file_path: Path to the file\n    \nReturns:\n    Language name or None if not detected",
+              "decorators": [
+                "@classmethod"
+              ],
+              "is_async": false,
+              "visibility": "public"
+            },
+            {
+              "name": "_detect_from_shebang",
+              "line_start": 72,
+              "line_end": 96,
+              "parameters": [
+                {
+                  "name": "cls",
+                  "type": null,
+                  "default": null
+                },
+                {
+                  "name": "file_path",
+                  "type": "Path",
+                  "default": null
+                }
+              ],
+              "return_type": "Optional[str]",
+              "docstring": "Detect language from shebang line.\n\nArgs:\n    file_path: Path to the file\n    \nReturns:\n    Language name or None",
+              "decorators": [
+                "@classmethod"
+              ],
+              "is_async": false,
+              "visibility": "protected"
+            },
+            {
+              "name": "get_supported_languages",
+              "line_start": 99,
+              "line_end": 106,
+              "parameters": [
+                {
+                  "name": "cls",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": "list[str]",
+              "docstring": "Get list of supported languages.\n\nReturns:\n    List of language names",
+              "decorators": [
+                "@classmethod"
+              ],
+              "is_async": false,
+              "visibility": "public"
+            },
+            {
+              "name": "get_extensions_for_language",
+              "line_start": 109,
+              "line_end": 119,
+              "parameters": [
+                {
+                  "name": "cls",
+                  "type": null,
+                  "default": null
+                },
+                {
+                  "name": "language",
+                  "type": "str",
+                  "default": null
+                }
+              ],
+              "return_type": "list[str]",
+              "docstring": "Get file extensions for a specific language.\n\nArgs:\n    language: Language name\n    \nReturns:\n    List of file extensions",
+              "decorators": [
+                "@classmethod"
+              ],
+              "is_async": false,
+              "visibility": "public"
+            }
+          ],
+          "base_classes": [],
+          "decorators": []
+        }
+      ],
+      "functions": [],
+      "imports": [
+        "from pathlib import Path",
+        "from typing import Optional"
+      ],
+      "documentation_coverage": 100.0
+    },
+    {
+      "path": "C:\\Users\\I.C.T\\OneDrive\\Documents\\git\\BOB_Hackathon\\codebase-scanner\\core\\extractor.py",
+      "size_bytes": 3121,
+      "line_count": 101,
+      "language": "python",
+      "classes": [
+        {
+          "name": "MetadataExtractor",
+          "line_start": 16,
+          "line_end": 99,
+          "docstring": "Extracts metadata from source files using appropriate parsers.",
+          "methods": [
+            {
+              "name": "__init__",
+              "line_start": 29,
+              "line_end": 37,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                },
+                {
+                  "name": "logger",
+                  "type": "logging.Logger | None",
+                  "default": "None"
+                }
+              ],
+              "return_type": null,
+              "docstring": "Initialize metadata extractor.\n\nArgs:\n    logger: Logger instance",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "protected"
+            },
+            {
+              "name": "extract",
+              "line_start": 39,
+              "line_end": 70,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                },
+                {
+                  "name": "file_path",
+                  "type": "Path",
+                  "default": null
+                }
+              ],
+              "return_type": "Dict[str, Any]",
+              "docstring": "Extract metadata from a file.\n\nArgs:\n    file_path: Path to file\n    \nReturns:\n    Dictionary containing extracted metadata",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "public"
+            },
+            {
+              "name": "_use_generic_parser",
+              "line_start": 72,
+              "line_end": 76,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                },
+                {
+                  "name": "file_path",
+                  "type": "Path",
+                  "default": null
+                }
+              ],
+              "return_type": "Dict[str, Any]",
+              "docstring": "Use generic parser as fallback.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "protected"
+            },
+            {
+              "name": "_error_result",
+              "line_start": 78,
+              "line_end": 90,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                },
+                {
+                  "name": "file_path",
+                  "type": "Path",
+                  "default": null
+                },
+                {
+                  "name": "error",
+                  "type": "str",
+                  "default": null
+                }
+              ],
+              "return_type": "Dict[str, Any]",
+              "docstring": "Return error result structure.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "protected"
+            },
+            {
+              "name": "get_supported_languages",
+              "line_start": 92,
+              "line_end": 99,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": "list[str]",
+              "docstring": "Get list of languages with dedicated parsers.\n\nReturns:\n    List of supported language names",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "public"
+            }
+          ],
+          "base_classes": [],
+          "decorators": []
+        }
+      ],
+      "functions": [],
+      "imports": [
+        "import logging",
+        "from pathlib import Path",
+        "from typing import Dict",
+        "from typing import Any",
+        "from typing import Optional",
+        "from core.detector import LanguageDetector",
+        "from parsers import PythonParser",
+        "from parsers import JavaScriptParser",
+        "from parsers import JavaParser",
+        "from parsers import CppParser",
+        "from parsers import GenericParser"
+      ],
+      "documentation_coverage": 100.0
+    },
+    {
+      "path": "C:\\Users\\I.C.T\\OneDrive\\Documents\\git\\BOB_Hackathon\\codebase-scanner\\core\\walker.py",
+      "size_bytes": 5988,
+      "line_count": 169,
+      "language": "python",
+      "classes": [
+        {
+          "name": "DirectoryWalker",
+          "line_start": 9,
+          "line_end": 167,
+          "docstring": "Walks through directory structure and yields files for scanning.",
+          "methods": [
+            {
+              "name": "__init__",
+              "line_start": 12,
+              "line_end": 46,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                },
+                {
+                  "name": "root_dir",
+                  "type": "Path",
+                  "default": null
+                },
+                {
+                  "name": "exclude_patterns",
+                  "type": "List[str]",
+                  "default": null
+                },
+                {
+                  "name": "include_extensions",
+                  "type": "List[str]",
+                  "default": null
+                },
+                {
+                  "name": "max_file_size_mb",
+                  "type": "float",
+                  "default": "10.0"
+                },
+                {
+                  "name": "follow_symlinks",
+                  "type": "bool",
+                  "default": "False"
+                },
+                {
+                  "name": "logger",
+                  "type": "logging.Logger | None",
+                  "default": "None"
+                }
+              ],
+              "return_type": null,
+              "docstring": "Initialize directory walker.\n\nArgs:\n    root_dir: Root directory to scan\n    exclude_patterns: List of glob patterns to exclude\n    include_extensions: List of file extensions to include\n    max_file_size_mb: Maximum file size in MB\n    follow_symlinks: Whether to follow symbolic links\n    logger: Logger instance",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "protected"
+            },
+            {
+              "name": "walk",
+              "line_start": 48,
+              "line_end": 71,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": "Iterator[Path]",
+              "docstring": "Walk through directory and yield files to scan.\n\nYields:\n    Path objects for files that pass all filters",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "public"
+            },
+            {
+              "name": "_walk_recursive",
+              "line_start": 73,
+              "line_end": 106,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                },
+                {
+                  "name": "directory",
+                  "type": "Path",
+                  "default": null
+                }
+              ],
+              "return_type": "Iterator[Path]",
+              "docstring": "Recursively walk through directory.\n\nArgs:\n    directory: Directory to walk\n    \nYields:\n    Path objects for valid files",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "protected"
+            },
+            {
+              "name": "_should_process_file",
+              "line_start": 108,
+              "line_end": 148,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                },
+                {
+                  "name": "file_path",
+                  "type": "Path",
+                  "default": null
+                }
+              ],
+              "return_type": "bool",
+              "docstring": "Check if a file should be processed.\n\nArgs:\n    file_path: Path to file\n    \nReturns:\n    True if file should be processed",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "protected"
+            },
+            {
+              "name": "_log_stats",
+              "line_start": 150,
+              "line_end": 158,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": "None",
+              "docstring": "Log statistics about the walk.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "protected"
+            },
+            {
+              "name": "get_stats",
+              "line_start": 160,
+              "line_end": 167,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": "dict",
+              "docstring": "Get walk statistics.\n\nReturns:\n    Dictionary of statistics",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "public"
+            }
+          ],
+          "base_classes": [],
+          "decorators": []
+        }
+      ],
+      "functions": [],
+      "imports": [
+        "import logging",
+        "from pathlib import Path",
+        "from typing import List",
+        "from typing import Iterator",
+        "from utils.filters import should_exclude_path",
+        "from utils.filters import matches_extension",
+        "from utils.filters import get_file_size_mb",
+        "from utils.filters import is_binary_file"
+      ],
+      "documentation_coverage": 100.0
+    },
+    {
+      "path": "C:\\Users\\I.C.T\\OneDrive\\Documents\\git\\BOB_Hackathon\\codebase-scanner\\formatters\\__init__.py",
+      "size_bytes": 200,
+      "line_count": 8,
+      "language": "python",
+      "classes": [],
+      "functions": [],
+      "imports": [
+        "from json_formatter import JSONFormatter",
+        "from markdown_formatter import MarkdownFormatter"
+      ],
+      "documentation_coverage": 100.0
+    },
+    {
+      "path": "C:\\Users\\I.C.T\\OneDrive\\Documents\\git\\BOB_Hackathon\\codebase-scanner\\formatters\\json_formatter.py",
+      "size_bytes": 5483,
+      "line_count": 149,
+      "language": "python",
+      "classes": [
+        {
+          "name": "JSONFormatter",
+          "line_start": 9,
+          "line_end": 147,
+          "docstring": "Formats scan results as JSON.",
+          "methods": [
+            {
+              "name": "format",
+              "line_start": 13,
+              "line_end": 49,
+              "parameters": [
+                {
+                  "name": "files_data",
+                  "type": "List[Dict[str, Any]]",
+                  "default": null
+                },
+                {
+                  "name": "root_directory",
+                  "type": "str",
+                  "default": null
+                },
+                {
+                  "name": "coverage_report",
+                  "type": "Dict[str, Any]",
+                  "default": null
+                }
+              ],
+              "return_type": "Dict[str, Any]",
+              "docstring": "Format scan results as structured JSON.\n\nArgs:\n    files_data: List of file metadata dictionaries\n    root_directory: Root directory that was scanned\n    coverage_report: Documentation coverage report\n    \nReturns:\n    Formatted dictionary ready for JSON serialization",
+              "decorators": [
+                "@staticmethod"
+              ],
+              "is_async": false,
+              "visibility": "public"
+            },
+            {
+              "name": "save",
+              "line_start": 52,
+              "line_end": 65,
+              "parameters": [
+                {
+                  "name": "data",
+                  "type": "Dict[str, Any]",
+                  "default": null
+                },
+                {
+                  "name": "output_path",
+                  "type": "Path",
+                  "default": null
+                }
+              ],
+              "return_type": "None",
+              "docstring": "Save formatted data to JSON file.\n\nArgs:\n    data: Formatted data dictionary\n    output_path: Path to output file",
+              "decorators": [
+                "@staticmethod"
+              ],
+              "is_async": false,
+              "visibility": "public"
+            },
+            {
+              "name": "calculate_coverage_report",
+              "line_start": 68,
+              "line_end": 147,
+              "parameters": [
+                {
+                  "name": "files_data",
+                  "type": "List[Dict[str, Any]]",
+                  "default": null
+                }
+              ],
+              "return_type": "Dict[str, Any]",
+              "docstring": "Calculate documentation coverage report.\n\nArgs:\n    files_data: List of file metadata dictionaries\n    \nReturns:\n    Coverage report dictionary",
+              "decorators": [
+                "@staticmethod"
+              ],
+              "is_async": false,
+              "visibility": "public"
+            }
+          ],
+          "base_classes": [],
+          "decorators": []
+        }
+      ],
+      "functions": [],
+      "imports": [
+        "import json",
+        "from datetime import datetime",
+        "from pathlib import Path",
+        "from typing import Dict",
+        "from typing import List",
+        "from typing import Any"
+      ],
+      "documentation_coverage": 100.0
+    },
+    {
+      "path": "C:\\Users\\I.C.T\\OneDrive\\Documents\\git\\BOB_Hackathon\\codebase-scanner\\formatters\\markdown_formatter.py",
+      "size_bytes": 11958,
+      "line_count": 318,
+      "language": "python",
+      "classes": [
+        {
+          "name": "MarkdownFormatter",
+          "line_start": 8,
+          "line_end": 315,
+          "docstring": "Formats scan results as human-readable Markdown documentation.",
+          "methods": [
+            {
+              "name": "format",
+              "line_start": 12,
+              "line_end": 150,
+              "parameters": [
+                {
+                  "name": "files_data",
+                  "type": "List[Dict[str, Any]]",
+                  "default": null
+                },
+                {
+                  "name": "root_directory",
+                  "type": "str",
+                  "default": null
+                },
+                {
+                  "name": "coverage_report",
+                  "type": "Dict[str, Any]",
+                  "default": null
+                }
+              ],
+              "return_type": "str",
+              "docstring": "Format scan results as Markdown documentation.\n\nArgs:\n    files_data: List of file metadata dictionaries\n    root_directory: Root directory that was scanned\n    coverage_report: Documentation coverage report\n    \nReturns:\n    Formatted markdown string",
+              "decorators": [
+                "@staticmethod"
+              ],
+              "is_async": false,
+              "visibility": "public"
+            },
+            {
+              "name": "_calculate_language_stats",
+              "line_start": 153,
+              "line_end": 180,
+              "parameters": [
+                {
+                  "name": "files_data",
+                  "type": "List[Dict[str, Any]]",
+                  "default": null
+                }
+              ],
+              "return_type": "Dict[str, Dict[str, int]]",
+              "docstring": "Calculate statistics per language.\n\nArgs:\n    files_data: List of file metadata dictionaries\n    \nReturns:\n    Dictionary mapping language to stats",
+              "decorators": [
+                "@staticmethod"
+              ],
+              "is_async": false,
+              "visibility": "protected"
+            },
+            {
+              "name": "_format_function",
+              "line_start": 183,
+              "line_end": 236,
+              "parameters": [
+                {
+                  "name": "func",
+                  "type": "Dict[str, Any]",
+                  "default": null
+                }
+              ],
+              "return_type": "List[str]",
+              "docstring": "Format a function as markdown.\n\nArgs:\n    func: Function metadata dictionary\n    \nReturns:\n    List of markdown lines",
+              "decorators": [
+                "@staticmethod"
+              ],
+              "is_async": false,
+              "visibility": "protected"
+            },
+            {
+              "name": "_format_class",
+              "line_start": 239,
+              "line_end": 299,
+              "parameters": [
+                {
+                  "name": "cls",
+                  "type": "Dict[str, Any]",
+                  "default": null
+                }
+              ],
+              "return_type": "List[str]",
+              "docstring": "Format a class as markdown.\n\nArgs:\n    cls: Class metadata dictionary\n    \nReturns:\n    List of markdown lines",
+              "decorators": [
+                "@staticmethod"
+              ],
+              "is_async": false,
+              "visibility": "protected"
+            },
+            {
+              "name": "save",
+              "line_start": 302,
+              "line_end": 315,
+              "parameters": [
+                {
+                  "name": "content",
+                  "type": "str",
+                  "default": null
+                },
+                {
+                  "name": "output_path",
+                  "type": "Path",
+                  "default": null
+                }
+              ],
+              "return_type": "None",
+              "docstring": "Save formatted markdown content to file.\n\nArgs:\n    content: Markdown content string\n    output_path: Path to output file",
+              "decorators": [
+                "@staticmethod"
+              ],
+              "is_async": false,
+              "visibility": "public"
+            }
+          ],
+          "base_classes": [],
+          "decorators": []
+        }
+      ],
+      "functions": [],
+      "imports": [
+        "from datetime import datetime",
+        "from pathlib import Path",
+        "from typing import Dict",
+        "from typing import List",
+        "from typing import Any"
+      ],
+      "documentation_coverage": 100.0
+    },
+    {
+      "path": "C:\\Users\\I.C.T\\OneDrive\\Documents\\git\\BOB_Hackathon\\codebase-scanner\\parsers\\__init__.py",
+      "size_bytes": 464,
+      "line_count": 19,
+      "language": "python",
+      "classes": [],
+      "functions": [],
+      "imports": [
+        "from base_parser import BaseParser",
+        "from python_parser import PythonParser",
+        "from javascript_parser import JavaScriptParser",
+        "from java_parser import JavaParser",
+        "from cpp_parser import CppParser",
+        "from generic_parser import GenericParser"
+      ],
+      "documentation_coverage": 100.0
+    },
+    {
+      "path": "C:\\Users\\I.C.T\\OneDrive\\Documents\\git\\BOB_Hackathon\\codebase-scanner\\parsers\\base_parser.py",
+      "size_bytes": 4385,
+      "line_count": 145,
+      "language": "python",
+      "classes": [
+        {
+          "name": "BaseParser",
+          "line_start": 8,
+          "line_end": 143,
+          "docstring": "Abstract base class for language parsers.",
+          "methods": [
+            {
+              "name": "__init__",
+              "line_start": 11,
+              "line_end": 21,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                },
+                {
+                  "name": "file_path",
+                  "type": "Path",
+                  "default": null
+                }
+              ],
+              "return_type": null,
+              "docstring": "Initialize parser.\n\nArgs:\n    file_path: Path to file to parse",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "protected"
+            },
+            {
+              "name": "load_file",
+              "line_start": 23,
+              "line_end": 38,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": "bool",
+              "docstring": "Load file content.\n\nReturns:\n    True if successful, False otherwise",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "public"
+            },
+            {
+              "name": "parse",
+              "line_start": 41,
+              "line_end": 54,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": "Dict[str, Any]",
+              "docstring": "Parse the file and extract metadata.\n\nReturns:\n    Dictionary containing parsed metadata with structure:\n    {\n        'classes': [...],\n        'functions': [...],\n        'imports': [...],\n        'documentation_coverage': float\n    }",
+              "decorators": [
+                "@abstractmethod"
+              ],
+              "is_async": false,
+              "visibility": "public"
+            },
+            {
+              "name": "get_file_metadata",
+              "line_start": 56,
+              "line_end": 67,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": "Dict[str, Any]",
+              "docstring": "Get basic file metadata.\n\nReturns:\n    Dictionary with file metadata",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "public"
+            },
+            {
+              "name": "calculate_coverage",
+              "line_start": 70,
+              "line_end": 83,
+              "parameters": [
+                {
+                  "name": "documented_items",
+                  "type": "int",
+                  "default": null
+                },
+                {
+                  "name": "total_items",
+                  "type": "int",
+                  "default": null
+                }
+              ],
+              "return_type": "float",
+              "docstring": "Calculate documentation coverage percentage.\n\nArgs:\n    documented_items: Number of documented items\n    total_items: Total number of items\n    \nReturns:\n    Coverage percentage (0-100)",
+              "decorators": [
+                "@staticmethod"
+              ],
+              "is_async": false,
+              "visibility": "public"
+            },
+            {
+              "name": "extract_docstring",
+              "line_start": 86,
+              "line_end": 122,
+              "parameters": [
+                {
+                  "name": "lines",
+                  "type": "List[str]",
+                  "default": null
+                },
+                {
+                  "name": "start_line",
+                  "type": "int",
+                  "default": null
+                }
+              ],
+              "return_type": "Optional[str]",
+              "docstring": "Extract docstring from lines starting at given position.\n\nArgs:\n    lines: List of code lines\n    start_line: Starting line number (0-based)\n    \nReturns:\n    Docstring text or None",
+              "decorators": [
+                "@staticmethod"
+              ],
+              "is_async": false,
+              "visibility": "public"
+            },
+            {
+              "name": "clean_comment",
+              "line_start": 125,
+              "line_end": 143,
+              "parameters": [
+                {
+                  "name": "comment",
+                  "type": "str",
+                  "default": null
+                }
+              ],
+              "return_type": "str",
+              "docstring": "Clean comment text by removing comment markers.\n\nArgs:\n    comment: Raw comment text\n    \nReturns:\n    Cleaned comment text",
+              "decorators": [
+                "@staticmethod"
+              ],
+              "is_async": false,
+              "visibility": "public"
+            }
+          ],
+          "base_classes": [
+            "ABC"
+          ],
+          "decorators": []
+        }
+      ],
+      "functions": [],
+      "imports": [
+        "from abc import ABC",
+        "from abc import abstractmethod",
+        "from pathlib import Path",
+        "from typing import Dict",
+        "from typing import List",
+        "from typing import Any",
+        "from typing import Optional"
+      ],
+      "documentation_coverage": 100.0
+    },
+    {
+      "path": "C:\\Users\\I.C.T\\OneDrive\\Documents\\git\\BOB_Hackathon\\codebase-scanner\\parsers\\cpp_parser.py",
+      "size_bytes": 12646,
+      "line_count": 341,
+      "language": "python",
+      "classes": [
+        {
+          "name": "CppParser",
+          "line_start": 9,
+          "line_end": 339,
+          "docstring": "Parser for C and C++ source files.",
+          "methods": [
+            {
+              "name": "__init__",
+              "line_start": 30,
+              "line_end": 38,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                },
+                {
+                  "name": "file_path",
+                  "type": "Path",
+                  "default": null
+                }
+              ],
+              "return_type": null,
+              "docstring": "Initialize C/C++ parser.\n\nArgs:\n    file_path: Path to C/C++ file",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "protected"
+            },
+            {
+              "name": "parse",
+              "line_start": 40,
+              "line_end": 73,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": "Dict[str, Any]",
+              "docstring": "Parse C/C++ file and extract metadata.\n\nReturns:\n    Dictionary containing classes, functions, imports, and coverage",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "public"
+            },
+            {
+              "name": "_extract_classes",
+              "line_start": 75,
+              "line_end": 126,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": "List[Dict[str, Any]]",
+              "docstring": "Extract class/struct definitions (C++ only).",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "protected"
+            },
+            {
+              "name": "_extract_methods",
+              "line_start": 128,
+              "line_end": 166,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                },
+                {
+                  "name": "class_body",
+                  "type": "str",
+                  "default": null
+                },
+                {
+                  "name": "class_line_start",
+                  "type": "int",
+                  "default": null
+                }
+              ],
+              "return_type": "List[Dict[str, Any]]",
+              "docstring": "Extract method definitions from class body.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "protected"
+            },
+            {
+              "name": "_extract_functions",
+              "line_start": 168,
+              "line_end": 213,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": "List[Dict[str, Any]]",
+              "docstring": "Extract function definitions.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "protected"
+            },
+            {
+              "name": "_parse_parameters",
+              "line_start": 215,
+              "line_end": 245,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                },
+                {
+                  "name": "params_str",
+                  "type": "str",
+                  "default": null
+                }
+              ],
+              "return_type": "List[Dict[str, Any]]",
+              "docstring": "Parse function parameters.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "protected"
+            },
+            {
+              "name": "_extract_includes",
+              "line_start": 247,
+              "line_end": 254,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": "List[str]",
+              "docstring": "Extract include statements.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "protected"
+            },
+            {
+              "name": "_extract_doxygen_before",
+              "line_start": 256,
+              "line_end": 281,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                },
+                {
+                  "name": "position",
+                  "type": "int",
+                  "default": null
+                }
+              ],
+              "return_type": "Optional[str]",
+              "docstring": "Extract Doxygen comment before a position.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "protected"
+            },
+            {
+              "name": "_extract_doxygen_before_in_text",
+              "line_start": 283,
+              "line_end": 294,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                },
+                {
+                  "name": "text",
+                  "type": "str",
+                  "default": null
+                },
+                {
+                  "name": "position",
+                  "type": "int",
+                  "default": null
+                }
+              ],
+              "return_type": "Optional[str]",
+              "docstring": "Extract Doxygen comment before a position in given text.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "protected"
+            },
+            {
+              "name": "_clean_doxygen",
+              "line_start": 296,
+              "line_end": 308,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                },
+                {
+                  "name": "doxygen",
+                  "type": "str",
+                  "default": null
+                }
+              ],
+              "return_type": "str",
+              "docstring": "Clean Doxygen comment text.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "protected"
+            },
+            {
+              "name": "_extract_visibility",
+              "line_start": 310,
+              "line_end": 327,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                },
+                {
+                  "name": "text",
+                  "type": "str",
+                  "default": null
+                },
+                {
+                  "name": "position",
+                  "type": "int",
+                  "default": null
+                }
+              ],
+              "return_type": "str",
+              "docstring": "Extract visibility modifier from class body.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "protected"
+            },
+            {
+              "name": "_empty_result",
+              "line_start": 329,
+              "line_end": 339,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": "Dict[str, Any]",
+              "docstring": "Return empty result structure.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "protected"
+            }
+          ],
+          "base_classes": [
+            "BaseParser"
+          ],
+          "decorators": []
+        }
+      ],
+      "functions": [],
+      "imports": [
+        "import re",
+        "from pathlib import Path",
+        "from typing import Dict",
+        "from typing import List",
+        "from typing import Any",
+        "from typing import Optional",
+        "from base_parser import BaseParser"
+      ],
+      "documentation_coverage": 100.0
+    },
+    {
+      "path": "C:\\Users\\I.C.T\\OneDrive\\Documents\\git\\BOB_Hackathon\\codebase-scanner\\parsers\\generic_parser.py",
+      "size_bytes": 1512,
+      "line_count": 54,
+      "language": "python",
+      "classes": [
+        {
+          "name": "GenericParser",
+          "line_start": 8,
+          "line_end": 52,
+          "docstring": "Fallback parser for languages without specific support.",
+          "methods": [
+            {
+              "name": "__init__",
+              "line_start": 11,
+              "line_end": 18,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                },
+                {
+                  "name": "file_path",
+                  "type": "Path",
+                  "default": null
+                }
+              ],
+              "return_type": null,
+              "docstring": "Initialize generic parser.\n\nArgs:\n    file_path: Path to file",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "protected"
+            },
+            {
+              "name": "parse",
+              "line_start": 20,
+              "line_end": 40,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": "Dict[str, Any]",
+              "docstring": "Parse file with basic metadata only.\n\nReturns:\n    Dictionary with minimal metadata",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "public"
+            },
+            {
+              "name": "_empty_result",
+              "line_start": 42,
+              "line_end": 52,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": "Dict[str, Any]",
+              "docstring": "Return empty result structure.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "protected"
+            }
+          ],
+          "base_classes": [
+            "BaseParser"
+          ],
+          "decorators": []
+        }
+      ],
+      "functions": [],
+      "imports": [
+        "from pathlib import Path",
+        "from typing import Dict",
+        "from typing import Any",
+        "from base_parser import BaseParser"
+      ],
+      "documentation_coverage": 100.0
+    },
+    {
+      "path": "C:\\Users\\I.C.T\\OneDrive\\Documents\\git\\BOB_Hackathon\\codebase-scanner\\parsers\\java_parser.py",
+      "size_bytes": 10441,
+      "line_count": 295,
+      "language": "python",
+      "classes": [
+        {
+          "name": "JavaParser",
+          "line_start": 9,
+          "line_end": 293,
+          "docstring": "Parser for Java source files.",
+          "methods": [
+            {
+              "name": "__init__",
+              "line_start": 30,
+              "line_end": 37,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                },
+                {
+                  "name": "file_path",
+                  "type": "Path",
+                  "default": null
+                }
+              ],
+              "return_type": null,
+              "docstring": "Initialize Java parser.\n\nArgs:\n    file_path: Path to Java file",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "protected"
+            },
+            {
+              "name": "parse",
+              "line_start": 39,
+              "line_end": 69,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": "Dict[str, Any]",
+              "docstring": "Parse Java file and extract metadata.\n\nReturns:\n    Dictionary containing classes, functions, imports, and coverage",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "public"
+            },
+            {
+              "name": "_extract_classes",
+              "line_start": 71,
+              "line_end": 119,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": "List[Dict[str, Any]]",
+              "docstring": "Extract class definitions.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "protected"
+            },
+            {
+              "name": "_extract_methods",
+              "line_start": 121,
+              "line_end": 155,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                },
+                {
+                  "name": "class_body",
+                  "type": "str",
+                  "default": null
+                },
+                {
+                  "name": "class_line_start",
+                  "type": "int",
+                  "default": null
+                }
+              ],
+              "return_type": "List[Dict[str, Any]]",
+              "docstring": "Extract method definitions from class body.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "protected"
+            },
+            {
+              "name": "_parse_parameters",
+              "line_start": 157,
+              "line_end": 181,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                },
+                {
+                  "name": "params_str",
+                  "type": "str",
+                  "default": null
+                }
+              ],
+              "return_type": "List[Dict[str, Any]]",
+              "docstring": "Parse method parameters.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "protected"
+            },
+            {
+              "name": "_parse_single_parameter",
+              "line_start": 183,
+              "line_end": 210,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                },
+                {
+                  "name": "param",
+                  "type": "str",
+                  "default": null
+                }
+              ],
+              "return_type": "Dict[str, Any]",
+              "docstring": "Parse a single parameter.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "protected"
+            },
+            {
+              "name": "_extract_imports",
+              "line_start": 212,
+              "line_end": 219,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": "List[str]",
+              "docstring": "Extract import statements.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "protected"
+            },
+            {
+              "name": "_extract_javadoc_before",
+              "line_start": 221,
+              "line_end": 232,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                },
+                {
+                  "name": "position",
+                  "type": "int",
+                  "default": null
+                }
+              ],
+              "return_type": "Optional[str]",
+              "docstring": "Extract Javadoc comment before a position.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "protected"
+            },
+            {
+              "name": "_extract_javadoc_before_in_text",
+              "line_start": 234,
+              "line_end": 245,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                },
+                {
+                  "name": "text",
+                  "type": "str",
+                  "default": null
+                },
+                {
+                  "name": "position",
+                  "type": "int",
+                  "default": null
+                }
+              ],
+              "return_type": "Optional[str]",
+              "docstring": "Extract Javadoc comment before a position in given text.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "protected"
+            },
+            {
+              "name": "_clean_javadoc",
+              "line_start": 247,
+              "line_end": 259,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                },
+                {
+                  "name": "javadoc",
+                  "type": "str",
+                  "default": null
+                }
+              ],
+              "return_type": "str",
+              "docstring": "Clean Javadoc comment text.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "protected"
+            },
+            {
+              "name": "_extract_visibility",
+              "line_start": 261,
+              "line_end": 269,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                },
+                {
+                  "name": "text",
+                  "type": "str",
+                  "default": null
+                }
+              ],
+              "return_type": "str",
+              "docstring": "Extract visibility modifier.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "protected"
+            },
+            {
+              "name": "_extract_annotations",
+              "line_start": 271,
+              "line_end": 281,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                },
+                {
+                  "name": "text",
+                  "type": "str",
+                  "default": null
+                },
+                {
+                  "name": "position",
+                  "type": "int",
+                  "default": null
+                }
+              ],
+              "return_type": "List[str]",
+              "docstring": "Extract annotations before a method.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "protected"
+            },
+            {
+              "name": "_empty_result",
+              "line_start": 283,
+              "line_end": 293,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": "Dict[str, Any]",
+              "docstring": "Return empty result structure.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "protected"
+            }
+          ],
+          "base_classes": [
+            "BaseParser"
+          ],
+          "decorators": []
+        }
+      ],
+      "functions": [],
+      "imports": [
+        "import re",
+        "from pathlib import Path",
+        "from typing import Dict",
+        "from typing import List",
+        "from typing import Any",
+        "from typing import Optional",
+        "from base_parser import BaseParser"
+      ],
+      "documentation_coverage": 100.0
+    },
+    {
+      "path": "C:\\Users\\I.C.T\\OneDrive\\Documents\\git\\BOB_Hackathon\\codebase-scanner\\parsers\\javascript_parser.py",
+      "size_bytes": 11456,
+      "line_count": 315,
+      "language": "python",
+      "classes": [
+        {
+          "name": "JavaScriptParser",
+          "line_start": 9,
+          "line_end": 313,
+          "docstring": "Parser for JavaScript and TypeScript files.",
+          "methods": [
+            {
+              "name": "__init__",
+              "line_start": 38,
+              "line_end": 46,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                },
+                {
+                  "name": "file_path",
+                  "type": "Path",
+                  "default": null
+                }
+              ],
+              "return_type": null,
+              "docstring": "Initialize JavaScript/TypeScript parser.\n\nArgs:\n    file_path: Path to JS/TS file",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "protected"
+            },
+            {
+              "name": "parse",
+              "line_start": 48,
+              "line_end": 81,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": "Dict[str, Any]",
+              "docstring": "Parse JavaScript/TypeScript file and extract metadata.\n\nReturns:\n    Dictionary containing classes, functions, imports, and coverage",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "public"
+            },
+            {
+              "name": "_extract_classes",
+              "line_start": 83,
+              "line_end": 125,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": "List[Dict[str, Any]]",
+              "docstring": "Extract class definitions.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "protected"
+            },
+            {
+              "name": "_extract_methods",
+              "line_start": 127,
+              "line_end": 159,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                },
+                {
+                  "name": "class_body",
+                  "type": "str",
+                  "default": null
+                },
+                {
+                  "name": "class_line_start",
+                  "type": "int",
+                  "default": null
+                }
+              ],
+              "return_type": "List[Dict[str, Any]]",
+              "docstring": "Extract method definitions from class body.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "protected"
+            },
+            {
+              "name": "_extract_functions",
+              "line_start": 161,
+              "line_end": 205,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": "List[Dict[str, Any]]",
+              "docstring": "Extract top-level function definitions.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "protected"
+            },
+            {
+              "name": "_parse_parameters",
+              "line_start": 207,
+              "line_end": 244,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                },
+                {
+                  "name": "params_str",
+                  "type": "str",
+                  "default": null
+                }
+              ],
+              "return_type": "List[Dict[str, Any]]",
+              "docstring": "Parse function parameters.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "protected"
+            },
+            {
+              "name": "_extract_imports",
+              "line_start": 246,
+              "line_end": 253,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": "List[str]",
+              "docstring": "Extract import statements.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "protected"
+            },
+            {
+              "name": "_extract_jsdoc_before",
+              "line_start": 255,
+              "line_end": 268,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                },
+                {
+                  "name": "position",
+                  "type": "int",
+                  "default": null
+                }
+              ],
+              "return_type": "Optional[str]",
+              "docstring": "Extract JSDoc comment before a position.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "protected"
+            },
+            {
+              "name": "_extract_jsdoc_before_in_text",
+              "line_start": 270,
+              "line_end": 281,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                },
+                {
+                  "name": "text",
+                  "type": "str",
+                  "default": null
+                },
+                {
+                  "name": "position",
+                  "type": "int",
+                  "default": null
+                }
+              ],
+              "return_type": "Optional[str]",
+              "docstring": "Extract JSDoc comment before a position in given text.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "protected"
+            },
+            {
+              "name": "_clean_jsdoc",
+              "line_start": 283,
+              "line_end": 295,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                },
+                {
+                  "name": "jsdoc",
+                  "type": "str",
+                  "default": null
+                }
+              ],
+              "return_type": "str",
+              "docstring": "Clean JSDoc comment text.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "protected"
+            },
+            {
+              "name": "_get_visibility",
+              "line_start": 297,
+              "line_end": 301,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                },
+                {
+                  "name": "name",
+                  "type": "str",
+                  "default": null
+                }
+              ],
+              "return_type": "str",
+              "docstring": "Determine visibility from name.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "protected"
+            },
+            {
+              "name": "_empty_result",
+              "line_start": 303,
+              "line_end": 313,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": "Dict[str, Any]",
+              "docstring": "Return empty result structure.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "protected"
+            }
+          ],
+          "base_classes": [
+            "BaseParser"
+          ],
+          "decorators": []
+        }
+      ],
+      "functions": [],
+      "imports": [
+        "import re",
+        "from pathlib import Path",
+        "from typing import Dict",
+        "from typing import List",
+        "from typing import Any",
+        "from typing import Optional",
+        "from base_parser import BaseParser"
+      ],
+      "documentation_coverage": 100.0
+    },
+    {
+      "path": "C:\\Users\\I.C.T\\OneDrive\\Documents\\git\\BOB_Hackathon\\codebase-scanner\\parsers\\python_parser.py",
+      "size_bytes": 8265,
+      "line_count": 231,
+      "language": "python",
+      "classes": [
+        {
+          "name": "PythonParser",
+          "line_start": 9,
+          "line_end": 229,
+          "docstring": "Parser for Python source files using AST.",
+          "methods": [
+            {
+              "name": "__init__",
+              "line_start": 12,
+              "line_end": 20,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                },
+                {
+                  "name": "file_path",
+                  "type": "Path",
+                  "default": null
+                }
+              ],
+              "return_type": null,
+              "docstring": "Initialize Python parser.\n\nArgs:\n    file_path: Path to Python file",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "protected"
+            },
+            {
+              "name": "parse",
+              "line_start": 22,
+              "line_end": 61,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": "Dict[str, Any]",
+              "docstring": "Parse Python file and extract metadata.\n\nReturns:\n    Dictionary containing classes, functions, imports, and coverage",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "public"
+            },
+            {
+              "name": "_extract_classes",
+              "line_start": 63,
+              "line_end": 83,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": "List[Dict[str, Any]]",
+              "docstring": "Extract class definitions from AST.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "protected"
+            },
+            {
+              "name": "_extract_methods",
+              "line_start": 85,
+              "line_end": 95,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                },
+                {
+                  "name": "class_node",
+                  "type": "ast.ClassDef",
+                  "default": null
+                }
+              ],
+              "return_type": "List[Dict[str, Any]]",
+              "docstring": "Extract method definitions from a class.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "protected"
+            },
+            {
+              "name": "_extract_functions",
+              "line_start": 97,
+              "line_end": 108,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": "List[Dict[str, Any]]",
+              "docstring": "Extract top-level function definitions.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "protected"
+            },
+            {
+              "name": "_extract_function_info",
+              "line_start": 110,
+              "line_end": 121,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                },
+                {
+                  "name": "node",
+                  "type": "ast.FunctionDef | ast.AsyncFunctionDef",
+                  "default": null
+                }
+              ],
+              "return_type": "Dict[str, Any]",
+              "docstring": "Extract information from a function node.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "protected"
+            },
+            {
+              "name": "_extract_parameters",
+              "line_start": 123,
+              "line_end": 158,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                },
+                {
+                  "name": "node",
+                  "type": "ast.FunctionDef | ast.AsyncFunctionDef",
+                  "default": null
+                }
+              ],
+              "return_type": "List[Dict[str, Any]]",
+              "docstring": "Extract function parameters with type hints and defaults.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "protected"
+            },
+            {
+              "name": "_extract_imports",
+              "line_start": 160,
+              "line_end": 176,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": "List[str]",
+              "docstring": "Extract import statements.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "protected"
+            },
+            {
+              "name": "_get_annotation",
+              "line_start": 178,
+              "line_end": 182,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                },
+                {
+                  "name": "annotation",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": "Optional[str]",
+              "docstring": "Get string representation of type annotation.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "protected"
+            },
+            {
+              "name": "_get_return_annotation",
+              "line_start": 184,
+              "line_end": 188,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                },
+                {
+                  "name": "node",
+                  "type": "ast.FunctionDef | ast.AsyncFunctionDef",
+                  "default": null
+                }
+              ],
+              "return_type": "Optional[str]",
+              "docstring": "Get return type annotation.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "protected"
+            },
+            {
+              "name": "_get_default_value",
+              "line_start": 190,
+              "line_end": 195,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                },
+                {
+                  "name": "node",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": "Optional[str]",
+              "docstring": "Get string representation of default value.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "protected"
+            },
+            {
+              "name": "_get_decorator_name",
+              "line_start": 197,
+              "line_end": 203,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                },
+                {
+                  "name": "decorator",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": "str",
+              "docstring": "Get decorator name.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "protected"
+            },
+            {
+              "name": "_get_name",
+              "line_start": 205,
+              "line_end": 209,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                },
+                {
+                  "name": "node",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": "str",
+              "docstring": "Get name from AST node.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "protected"
+            },
+            {
+              "name": "_get_visibility",
+              "line_start": 211,
+              "line_end": 217,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                },
+                {
+                  "name": "name",
+                  "type": "str",
+                  "default": null
+                }
+              ],
+              "return_type": "str",
+              "docstring": "Determine visibility from name.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "protected"
+            },
+            {
+              "name": "_empty_result",
+              "line_start": 219,
+              "line_end": 229,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": "Dict[str, Any]",
+              "docstring": "Return empty result structure.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "protected"
+            }
+          ],
+          "base_classes": [
+            "BaseParser"
+          ],
+          "decorators": []
+        }
+      ],
+      "functions": [],
+      "imports": [
+        "import ast",
+        "from pathlib import Path",
+        "from typing import Dict",
+        "from typing import List",
+        "from typing import Any",
+        "from typing import Optional",
+        "from base_parser import BaseParser"
+      ],
+      "documentation_coverage": 100.0
+    },
+    {
+      "path": "C:\\Users\\I.C.T\\OneDrive\\Documents\\git\\BOB_Hackathon\\codebase-scanner\\run_tests.py",
+      "size_bytes": 499,
+      "line_count": 19,
+      "language": "python",
+      "classes": [],
+      "functions": [],
+      "imports": [
+        "import unittest",
+        "import sys",
+        "from pathlib import Path"
+      ],
+      "documentation_coverage": 100.0
+    },
+    {
+      "path": "C:\\Users\\I.C.T\\OneDrive\\Documents\\git\\BOB_Hackathon\\codebase-scanner\\scanner.py",
+      "size_bytes": 8806,
+      "line_count": 283,
+      "language": "python",
+      "classes": [],
+      "functions": [
+        {
+          "name": "load_config",
+          "line_start": 16,
+          "line_end": 31,
+          "parameters": [
+            {
+              "name": "config_path",
+              "type": "Path",
+              "default": null
+            }
+          ],
+          "return_type": "Dict[str, Any]",
+          "docstring": "Load configuration from JSON file.\n\nArgs:\n    config_path: Path to config file\n    \nReturns:\n    Configuration dictionary",
+          "decorators": [],
+          "is_async": false
+        },
+        {
+          "name": "scan_codebase",
+          "line_start": 34,
+          "line_end": 120,
+          "parameters": [
+            {
+              "name": "config",
+              "type": "Dict[str, Any]",
+              "default": null
+            },
+            {
+              "name": "output_format",
+              "type": "str",
+              "default": "'json'"
+            }
+          ],
+          "return_type": "None",
+          "docstring": "Scan codebase and generate documentation metadata.\n\nArgs:\n    config: Configuration dictionary\n    output_format: Output format ('json', 'markdown', or 'both')",
+          "decorators": [],
+          "is_async": false
+        },
+        {
+          "name": "main",
+          "line_start": 123,
+          "line_end": 277,
+          "parameters": [],
+          "return_type": null,
+          "docstring": "Main entry point.",
+          "decorators": [],
+          "is_async": false
+        }
+      ],
+      "imports": [
+        "import argparse",
+        "import json",
+        "import sys",
+        "from pathlib import Path",
+        "from typing import Dict",
+        "from typing import Any",
+        "from core.walker import DirectoryWalker",
+        "from core.extractor import MetadataExtractor",
+        "from formatters.json_formatter import JSONFormatter",
+        "from formatters.markdown_formatter import MarkdownFormatter",
+        "from utils.logger import setup_logger",
+        "from utils.logger import log_scan_summary"
+      ],
+      "documentation_coverage": 100.0
+    },
+    {
+      "path": "C:\\Users\\I.C.T\\OneDrive\\Documents\\git\\BOB_Hackathon\\codebase-scanner\\tests\\__init__.py",
+      "size_bytes": 117,
+      "line_count": 5,
+      "language": "python",
+      "classes": [],
+      "functions": [],
+      "imports": [],
+      "documentation_coverage": 100.0
+    },
+    {
+      "path": "C:\\Users\\I.C.T\\OneDrive\\Documents\\git\\BOB_Hackathon\\codebase-scanner\\tests\\conftest.py",
+      "size_bytes": 226,
+      "line_count": 9,
+      "language": "python",
+      "classes": [],
+      "functions": [],
+      "imports": [
+        "import sys",
+        "from pathlib import Path"
+      ],
+      "documentation_coverage": 100.0
+    },
+    {
+      "path": "C:\\Users\\I.C.T\\OneDrive\\Documents\\git\\BOB_Hackathon\\codebase-scanner\\tests\\test_detector.py",
+      "size_bytes": 3704,
+      "line_count": 100,
+      "language": "python",
+      "classes": [
+        {
+          "name": "TestLanguageDetector",
+          "line_start": 10,
+          "line_end": 94,
+          "docstring": "Test cases for LanguageDetector.",
+          "methods": [
+            {
+              "name": "setUp",
+              "line_start": 13,
+              "line_end": 16,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": null,
+              "docstring": "Set up test fixtures.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "public"
+            },
+            {
+              "name": "tearDown",
+              "line_start": 18,
+              "line_end": 22,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": null,
+              "docstring": "Clean up test fixtures.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "public"
+            },
+            {
+              "name": "create_temp_file",
+              "line_start": 24,
+              "line_end": 29,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                },
+                {
+                  "name": "filename",
+                  "type": "str",
+                  "default": null
+                },
+                {
+                  "name": "content",
+                  "type": "str",
+                  "default": "''"
+                }
+              ],
+              "return_type": "Path",
+              "docstring": "Create a temporary file for testing.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "public"
+            },
+            {
+              "name": "test_python_detection",
+              "line_start": 31,
+              "line_end": 35,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": null,
+              "docstring": "Test Python file detection.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "public"
+            },
+            {
+              "name": "test_javascript_detection",
+              "line_start": 37,
+              "line_end": 41,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": null,
+              "docstring": "Test JavaScript file detection.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "public"
+            },
+            {
+              "name": "test_typescript_detection",
+              "line_start": 43,
+              "line_end": 47,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": null,
+              "docstring": "Test TypeScript file detection.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "public"
+            },
+            {
+              "name": "test_java_detection",
+              "line_start": 49,
+              "line_end": 53,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": null,
+              "docstring": "Test Java file detection.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "public"
+            },
+            {
+              "name": "test_c_detection",
+              "line_start": 55,
+              "line_end": 59,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": null,
+              "docstring": "Test C file detection.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "public"
+            },
+            {
+              "name": "test_cpp_detection",
+              "line_start": 61,
+              "line_end": 65,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": null,
+              "docstring": "Test C++ file detection.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "public"
+            },
+            {
+              "name": "test_shebang_python",
+              "line_start": 67,
+              "line_end": 72,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": null,
+              "docstring": "Test Python detection via shebang.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "public"
+            },
+            {
+              "name": "test_unknown_extension",
+              "line_start": 74,
+              "line_end": 78,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": null,
+              "docstring": "Test unknown file extension.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "public"
+            },
+            {
+              "name": "test_get_supported_languages",
+              "line_start": 80,
+              "line_end": 85,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": null,
+              "docstring": "Test getting list of supported languages.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "public"
+            },
+            {
+              "name": "test_get_extensions_for_language",
+              "line_start": 87,
+              "line_end": 94,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": null,
+              "docstring": "Test getting extensions for a language.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "public"
+            }
+          ],
+          "base_classes": [
+            "unittest.TestCase"
+          ],
+          "decorators": []
+        }
+      ],
+      "functions": [],
+      "imports": [
+        "import unittest",
+        "from pathlib import Path",
+        "import tempfile",
+        "import os",
+        "from core.detector import LanguageDetector"
+      ],
+      "documentation_coverage": 100.0
+    },
+    {
+      "path": "C:\\Users\\I.C.T\\OneDrive\\Documents\\git\\BOB_Hackathon\\codebase-scanner\\tests\\test_filters.py",
+      "size_bytes": 3107,
+      "line_count": 89,
+      "language": "python",
+      "classes": [
+        {
+          "name": "TestFilters",
+          "line_start": 10,
+          "line_end": 83,
+          "docstring": "Test cases for file filtering utilities.",
+          "methods": [
+            {
+              "name": "setUp",
+              "line_start": 13,
+              "line_end": 15,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": null,
+              "docstring": "Set up test fixtures.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "public"
+            },
+            {
+              "name": "tearDown",
+              "line_start": 17,
+              "line_end": 21,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": null,
+              "docstring": "Clean up test fixtures.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "public"
+            },
+            {
+              "name": "test_should_exclude_path_simple",
+              "line_start": 23,
+              "line_end": 27,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": null,
+              "docstring": "Test simple exclusion pattern.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "public"
+            },
+            {
+              "name": "test_should_exclude_path_no_match",
+              "line_start": 29,
+              "line_end": 33,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": null,
+              "docstring": "Test path that should not be excluded.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "public"
+            },
+            {
+              "name": "test_should_exclude_path_wildcard",
+              "line_start": 35,
+              "line_end": 39,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": null,
+              "docstring": "Test wildcard exclusion pattern.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "public"
+            },
+            {
+              "name": "test_matches_extension_positive",
+              "line_start": 41,
+              "line_end": 45,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": null,
+              "docstring": "Test matching file extension.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "public"
+            },
+            {
+              "name": "test_matches_extension_negative",
+              "line_start": 47,
+              "line_end": 51,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": null,
+              "docstring": "Test non-matching file extension.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "public"
+            },
+            {
+              "name": "test_matches_extension_case_insensitive",
+              "line_start": 53,
+              "line_end": 57,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": null,
+              "docstring": "Test case-insensitive extension matching.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "public"
+            },
+            {
+              "name": "test_get_file_size_mb",
+              "line_start": 59,
+              "line_end": 67,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": null,
+              "docstring": "Test file size calculation.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "public"
+            },
+            {
+              "name": "test_is_binary_file_text",
+              "line_start": 69,
+              "line_end": 75,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": null,
+              "docstring": "Test text file detection.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "public"
+            },
+            {
+              "name": "test_is_binary_file_binary",
+              "line_start": 77,
+              "line_end": 83,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": null,
+              "docstring": "Test binary file detection.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "public"
+            }
+          ],
+          "base_classes": [
+            "unittest.TestCase"
+          ],
+          "decorators": []
+        }
+      ],
+      "functions": [],
+      "imports": [
+        "import unittest",
+        "from pathlib import Path",
+        "import tempfile",
+        "import os",
+        "from utils.filters import should_exclude_path",
+        "from utils.filters import matches_extension",
+        "from utils.filters import get_file_size_mb",
+        "from utils.filters import is_binary_file"
+      ],
+      "documentation_coverage": 100.0
+    },
+    {
+      "path": "C:\\Users\\I.C.T\\OneDrive\\Documents\\git\\BOB_Hackathon\\codebase-scanner\\tests\\test_python_parser.py",
+      "size_bytes": 5539,
+      "line_count": 172,
+      "language": "python",
+      "classes": [
+        {
+          "name": "TestPythonParser",
+          "line_start": 10,
+          "line_end": 166,
+          "docstring": "Test cases for PythonParser.",
+          "methods": [
+            {
+              "name": "setUp",
+              "line_start": 13,
+              "line_end": 15,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": null,
+              "docstring": "Set up test fixtures.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "public"
+            },
+            {
+              "name": "tearDown",
+              "line_start": 17,
+              "line_end": 22,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": null,
+              "docstring": "Clean up test fixtures.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "public"
+            },
+            {
+              "name": "create_temp_file",
+              "line_start": 24,
+              "line_end": 29,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                },
+                {
+                  "name": "filename",
+                  "type": "str",
+                  "default": null
+                },
+                {
+                  "name": "content",
+                  "type": "str",
+                  "default": null
+                }
+              ],
+              "return_type": "Path",
+              "docstring": "Create a temporary Python file for testing.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "public"
+            },
+            {
+              "name": "test_simple_function",
+              "line_start": 31,
+              "line_end": 49,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": null,
+              "docstring": "Test parsing a simple function.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "public"
+            },
+            {
+              "name": "test_class_with_methods",
+              "line_start": 51,
+              "line_end": 74,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": null,
+              "docstring": "Test parsing a class with methods.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "public"
+            },
+            {
+              "name": "test_async_function",
+              "line_start": 76,
+              "line_end": 88,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": null,
+              "docstring": "Test parsing async function.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "public"
+            },
+            {
+              "name": "test_decorated_function",
+              "line_start": 90,
+              "line_end": 103,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": null,
+              "docstring": "Test parsing decorated function.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "public"
+            },
+            {
+              "name": "test_imports",
+              "line_start": 105,
+              "line_end": 120,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": null,
+              "docstring": "Test parsing import statements.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "public"
+            },
+            {
+              "name": "test_documentation_coverage",
+              "line_start": 122,
+              "line_end": 137,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": null,
+              "docstring": "Test documentation coverage calculation.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "public"
+            },
+            {
+              "name": "test_no_docstring_function",
+              "line_start": 139,
+              "line_end": 152,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": null,
+              "docstring": "Test documentation coverage with no docstring.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "public"
+            },
+            {
+              "name": "test_syntax_error",
+              "line_start": 154,
+              "line_end": 166,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": null,
+              "docstring": "Test handling of syntax errors.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "public"
+            }
+          ],
+          "base_classes": [
+            "unittest.TestCase"
+          ],
+          "decorators": []
+        }
+      ],
+      "functions": [],
+      "imports": [
+        "import unittest",
+        "from pathlib import Path",
+        "import tempfile",
+        "import os",
+        "from parsers.python_parser import PythonParser"
+      ],
+      "documentation_coverage": 100.0
+    },
+    {
+      "path": "C:\\Users\\I.C.T\\OneDrive\\Documents\\git\\BOB_Hackathon\\codebase-scanner\\utils\\__init__.py",
+      "size_bytes": 0,
+      "line_count": 0,
+      "language": "python",
+      "classes": [],
+      "functions": [],
+      "imports": [],
+      "documentation_coverage": 100.0
+    },
+    {
+      "path": "C:\\Users\\I.C.T\\OneDrive\\Documents\\git\\BOB_Hackathon\\codebase-scanner\\utils\\filters.py",
+      "size_bytes": 2669,
+      "line_count": 94,
+      "language": "python",
+      "classes": [],
+      "functions": [
+        {
+          "name": "should_exclude_path",
+          "line_start": 8,
+          "line_end": 33,
+          "parameters": [
+            {
+              "name": "path",
+              "type": "Path",
+              "default": null
+            },
+            {
+              "name": "exclude_patterns",
+              "type": "List[str]",
+              "default": null
+            }
+          ],
+          "return_type": "bool",
+          "docstring": "Check if a path should be excluded based on patterns.\n\nArgs:\n    path: Path to check\n    exclude_patterns: List of glob patterns to exclude\n    \nReturns:\n    True if path should be excluded, False otherwise",
+          "decorators": [],
+          "is_async": false
+        },
+        {
+          "name": "matches_extension",
+          "line_start": 36,
+          "line_end": 47,
+          "parameters": [
+            {
+              "name": "path",
+              "type": "Path",
+              "default": null
+            },
+            {
+              "name": "extensions",
+              "type": "List[str]",
+              "default": null
+            }
+          ],
+          "return_type": "bool",
+          "docstring": "Check if a file has one of the specified extensions.\n\nArgs:\n    path: Path to check\n    extensions: List of file extensions (e.g., ['.py', '.js'])\n    \nReturns:\n    True if file extension matches, False otherwise",
+          "decorators": [],
+          "is_async": false
+        },
+        {
+          "name": "get_file_size_mb",
+          "line_start": 50,
+          "line_end": 63,
+          "parameters": [
+            {
+              "name": "path",
+              "type": "Path",
+              "default": null
+            }
+          ],
+          "return_type": "float",
+          "docstring": "Get file size in megabytes.\n\nArgs:\n    path: Path to file\n    \nReturns:\n    File size in MB",
+          "decorators": [],
+          "is_async": false
+        },
+        {
+          "name": "is_binary_file",
+          "line_start": 66,
+          "line_end": 92,
+          "parameters": [
+            {
+              "name": "path",
+              "type": "Path",
+              "default": null
+            },
+            {
+              "name": "sample_size",
+              "type": "int",
+              "default": "8192"
+            }
+          ],
+          "return_type": "bool",
+          "docstring": "Check if a file is binary by reading a sample.\n\nArgs:\n    path: Path to file\n    sample_size: Number of bytes to sample\n    \nReturns:\n    True if file appears to be binary, False otherwise",
+          "decorators": [],
+          "is_async": false
+        }
+      ],
+      "imports": [
+        "import fnmatch",
+        "from pathlib import Path",
+        "from typing import List"
+      ],
+      "documentation_coverage": 100.0
+    },
+    {
+      "path": "C:\\Users\\I.C.T\\OneDrive\\Documents\\git\\BOB_Hackathon\\codebase-scanner\\utils\\logger.py",
+      "size_bytes": 2374,
+      "line_count": 70,
+      "language": "python",
+      "classes": [],
+      "functions": [
+        {
+          "name": "setup_logger",
+          "line_start": 9,
+          "line_end": 49,
+          "parameters": [
+            {
+              "name": "name",
+              "type": "str",
+              "default": "'codebase_scanner'"
+            },
+            {
+              "name": "verbose",
+              "type": "bool",
+              "default": "True"
+            },
+            {
+              "name": "log_file",
+              "type": "str | None",
+              "default": "None"
+            }
+          ],
+          "return_type": "logging.Logger",
+          "docstring": "Set up and configure a logger for the application.\n\nArgs:\n    name: Logger name\n    verbose: If True, set level to DEBUG, otherwise INFO\n    log_file: Optional path to log file\n    \nReturns:\n    Configured logger instance",
+          "decorators": [],
+          "is_async": false
+        },
+        {
+          "name": "log_scan_summary",
+          "line_start": 52,
+          "line_end": 68,
+          "parameters": [
+            {
+              "name": "logger",
+              "type": "logging.Logger",
+              "default": null
+            },
+            {
+              "name": "stats",
+              "type": "dict",
+              "default": null
+            }
+          ],
+          "return_type": "None",
+          "docstring": "Log a summary of the scan results.\n\nArgs:\n    logger: Logger instance\n    stats: Dictionary containing scan statistics",
+          "decorators": [],
+          "is_async": false
+        }
+      ],
+      "imports": [
+        "import logging",
+        "import sys",
+        "from datetime import datetime",
+        "from pathlib import Path"
+      ],
+      "documentation_coverage": 100.0
+    }
+  ],
+  "coverage_report": {
+    "overall_coverage": 100.0,
+    "total_items": 129,
+    "documented_items": 129,
+    "undocumented_items_count": 0,
+    "by_language": {
+      "python": 100.0
+    },
+    "undocumented_items": []
+  }
+}
