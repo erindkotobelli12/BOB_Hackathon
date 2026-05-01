@@ -195,7 +195,7 @@ class MarkdownFormatter:
         name = func.get('name', 'unknown')
         params = func.get('parameters', [])
         return_type = func.get('return_type', 'unknown')
-        docstring = func.get('docstring', '').strip()
+        docstring = (func.get('docstring') or '').strip()
         line_start = func.get('line_start', 0)
         
         # Function signature
@@ -249,7 +249,7 @@ class MarkdownFormatter:
         lines = []
         
         name = cls.get('name', 'unknown')
-        docstring = cls.get('docstring', '').strip()
+        docstring = (cls.get('docstring') or '').strip()
         line_start = cls.get('line_start', 0)
         methods = cls.get('methods', [])
         
@@ -279,7 +279,7 @@ class MarkdownFormatter:
                 method_name = method.get('name', 'unknown')
                 method_params = method.get('parameters', [])
                 method_return = method.get('return_type', 'unknown')
-                method_docstring = method.get('docstring', '').strip()
+                method_docstring = (method.get('docstring') or '').strip()
                 method_line = method.get('line_start', 0)
                 
                 method_param_names = [p.get('name', '') if isinstance(p, dict) else str(p) for p in method_params]

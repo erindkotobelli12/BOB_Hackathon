@@ -1,0 +1,27 @@
+{
+  "root_directory": ".",
+  "output_file": "output/documentation.json",
+  "exclude_patterns": [
+    "node_modules/**",
+    "venv/**",
+    "__pycache__/**",
+    ".git/**"
+  ],
+  "include_extensions": [
+    ".py",
+    ".js",
+    ".ts",
+    ".jsx",
+    ".tsx",
+    ".java",
+    ".c",
+    ".cpp",
+    ".h",
+    ".hpp"
+  ],
+  "max_file_size_mb": 10,
+  "follow_symlinks": false,
+  "extract_imports": true,
+  "calculate_coverage": true,
+  "verbose_logging": true
+}

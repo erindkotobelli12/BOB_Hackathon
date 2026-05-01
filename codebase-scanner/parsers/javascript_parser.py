@@ -11,19 +11,26 @@ class JavaScriptParser(BaseParser):
     
     # Regex patterns for parsing
     CLASS_PATTERN = re.compile(
-        r'(?:export\s+)?(?:default\s+)?class\s+(\w+)(?:\s+extends\s+([\w.]+))?',
+        r'(?:export\s+)?(?:default\s+)?class\s+(\w+)(?:<[^>]+>)?(?:\s+extends\s+([\w.]+)(?:<[^>]+>)?)?',
         re.MULTILINE
     )
     FUNCTION_PATTERN = re.compile(
-        r'(?:export\s+)?(?:async\s+)?function\s+(\w+)\s*\((.*?)\)(?:\s*:\s*([\w<>[\]|]+))?',
+        r'(?:export\s+)?(?:async\s+)?function\s+(\w+)(?:<[^>]+>)?\s*\((.*?)\)(?:\s*:\s*([\w<>[\]|,\s]+))?',
         re.MULTILINE | re.DOTALL
     )
+    # Improved arrow function pattern to handle various formats
     ARROW_FUNCTION_PATTERN = re.compile(
-        r'(?:export\s+)?(?:const|let|var)\s+(\w+)\s*=\s*(?:async\s+)?\((.*?)\)(?:\s*:\s*([\w<>[\]|]+))?\s*=>',
+        r'(?:export\s+)?(?:const|let|var)\s+(\w+)\s*(?::\s*[\w<>[\]|,\s()=>]+)?\s*=\s*(?:async\s+)?\((.*?)\)(?:\s*:\s*([\w<>[\]|,\s]+))?\s*=>',
         re.MULTILINE | re.DOTALL
     )
+    # Pattern for class property arrow functions
+    CLASS_PROPERTY_ARROW_PATTERN = re.compile(
+        r'(?:(public|private|protected|readonly)\s+)?(\w+)\s*(?::\s*[\w<>[\]|,\s()=>]+)?\s*=\s*(?:async\s+)?\((.*?)\)(?:\s*:\s*([\w<>[\]|,\s]+))?\s*=>',
+        re.MULTILINE | re.DOTALL
+    )
+    # Improved method pattern with TypeScript access modifiers
     METHOD_PATTERN = re.compile(
-        r'(?:async\s+)?(\w+)\s*\((.*?)\)(?:\s*:\s*([\w<>[\]|]+))?\s*\{',
+        r'(?:(public|private|protected|readonly|static)\s+)?(?:async\s+)?(\w+)(?:<[^>]+>)?\s*\((.*?)\)(?:\s*:\s*([\w<>[\]|,\s]+))?\s*\{',
         re.MULTILINE | re.DOTALL
     )
     JSDOC_PATTERN = re.compile(
@@ -128,21 +135,26 @@ class JavaScriptParser(BaseParser):
         """Extract method definitions from class body."""
         methods = []
         
+        # Extract regular methods with TypeScript access modifiers
         for match in self.METHOD_PATTERN.finditer(class_body):
-            method_name = match.group(1)
+            access_modifier = match.group(1)
+            method_name = match.group(2)
             
             # Skip constructor and common non-methods
             if method_name in ['if', 'for', 'while', 'switch', 'catch']:
                 continue
             
-            params_str = match.group(2)
-            return_type = match.group(3)
+            params_str = match.group(3)
+            return_type = match.group(4)
             
             line_offset = class_body[:match.start()].count('\n')
             line_start = class_line_start + line_offset
             
             # Extract JSDoc
             docstring = self._extract_jsdoc_before_in_text(class_body, match.start())
+            
+            # Determine visibility from access modifier or name
+            visibility = self._get_visibility_from_modifier(access_modifier, method_name)
             
             methods.append({
                 'name': method_name,
@@ -152,8 +164,42 @@ class JavaScriptParser(BaseParser):
                 'return_type': return_type,
                 'docstring': docstring,
                 'decorators': [],
-                'is_async': 'async' in class_body[max(0, match.start()-10):match.start()],
-                'visibility': self._get_visibility(method_name),
+                'is_async': 'async' in class_body[max(0, match.start()-20):match.start()],
+                'visibility': visibility,
+                'is_static': access_modifier == 'static' if access_modifier else False,
+            })
+        
+        # Extract class property arrow functions
+        for match in self.CLASS_PROPERTY_ARROW_PATTERN.finditer(class_body):
+            access_modifier = match.group(1)
+            method_name = match.group(2)
+            params_str = match.group(3)
+            return_type = match.group(4)
+            
+            line_offset = class_body[:match.start()].count('\n')
+            line_start = class_line_start + line_offset
+            
+            # Extract JSDoc
+            docstring = self._extract_jsdoc_before_in_text(class_body, match.start())
+            
+            # Determine visibility from access modifier or name
+            visibility = self._get_visibility_from_modifier(access_modifier, method_name)
+            
+            # Check for async in the matched text
+            matched_text = match.group(0)
+            is_async = 'async' in matched_text
+            
+            methods.append({
+                'name': method_name,
+                'line_start': line_start,
+                'line_end': line_start + 1,  # Approximate
+                'parameters': self._parse_parameters(params_str),
+                'return_type': return_type,
+                'docstring': docstring,
+                'decorators': [],
+                'is_async': is_async,
+                'visibility': visibility,
+                'is_arrow_function': True,
             })
         
         return methods
@@ -186,10 +232,14 @@ class JavaScriptParser(BaseParser):
         for match in self.ARROW_FUNCTION_PATTERN.finditer(self.content):
             func_name = match.group(1)
             params_str = match.group(2)
-            return_type = match.group(3)
+            return_type = match.group(3).strip() if match.group(3) else None
             line_start = self.content[:match.start()].count('\n') + 1
             
             docstring = self._extract_jsdoc_before(match.start())
+            
+            # Check for async in the matched text
+            matched_text = match.group(0)
+            is_async = 'async' in matched_text
             
             functions.append({
                 'name': func_name,
@@ -199,7 +249,7 @@ class JavaScriptParser(BaseParser):
                 'return_type': return_type,
                 'docstring': docstring,
                 'decorators': [],
-                'is_async': 'async' in self.content[max(0, match.start()-10):match.start()],
+                'is_async': is_async,
             })
         
         return functions
@@ -210,38 +260,91 @@ class JavaScriptParser(BaseParser):
             return []
         
         params = []
-        # Simple split by comma (doesn't handle complex nested types perfectly)
-        for param in params_str.split(','):
-            param = param.strip()
-            if not param:
-                continue
+        # Smart split by comma that respects nested brackets and parentheses
+        current_param = []
+        depth = 0
+        in_string = False
+        string_char = None
+        
+        for char in params_str:
+            if char in ['"', "'", '`'] and not in_string:
+                in_string = True
+                string_char = char
+            elif in_string and char == string_char:
+                in_string = False
+                string_char = None
+            elif not in_string:
+                if char in ['<', '(', '[', '{']:
+                    depth += 1
+                elif char in ['>', ')', ']', '}']:
+                    depth -= 1
+                elif char == ',' and depth == 0:
+                    params.append(self._parse_single_parameter(''.join(current_param)))
+                    current_param = []
+                    continue
             
-            # Parse name, type, and default
-            name = param
-            param_type = None
-            default = None
-            
-            # Check for default value
-            if '=' in param:
-                parts = param.split('=', 1)
-                param = parts[0].strip()
-                default = parts[1].strip()
-            
-            # Check for type annotation
-            if ':' in param:
-                parts = param.split(':', 1)
-                name = parts[0].strip()
-                param_type = parts[1].strip()
-            else:
-                name = param
-            
-            params.append({
-                'name': name,
-                'type': param_type,
-                'default': default,
-            })
+            current_param.append(char)
+        
+        # Add the last parameter
+        if current_param:
+            params.append(self._parse_single_parameter(''.join(current_param)))
         
         return params
+    
+    def _parse_single_parameter(self, param: str) -> Dict[str, Any]:
+        """Parse a single parameter string."""
+        param = param.strip()
+        if not param:
+            return {'name': '', 'type': None, 'default': None}
+        
+        name = param
+        param_type = None
+        default = None
+        
+        # Check for default value (but not in type annotations)
+        # Find the last '=' that's not inside brackets
+        depth = 0
+        equal_pos = -1
+        for i, char in enumerate(param):
+            if char in ['<', '(', '[', '{']:
+                depth += 1
+            elif char in ['>', ')', ']', '}']:
+                depth -= 1
+            elif char == '=' and depth == 0:
+                equal_pos = i
+        
+        if equal_pos > 0:
+            default = param[equal_pos + 1:].strip()
+            param = param[:equal_pos].strip()
+        
+        # Check for type annotation
+        # Find the first ':' that's not inside brackets
+        depth = 0
+        colon_pos = -1
+        for i, char in enumerate(param):
+            if char in ['<', '(', '[', '{']:
+                depth += 1
+            elif char in ['>', ')', ']', '}']:
+                depth -= 1
+            elif char == ':' and depth == 0:
+                colon_pos = i
+                break
+        
+        if colon_pos > 0:
+            name = param[:colon_pos].strip()
+            param_type = param[colon_pos + 1:].strip()
+        else:
+            name = param
+        
+        # Remove optional marker '?' from name
+        if name.endswith('?'):
+            name = name[:-1].strip()
+        
+        return {
+            'name': name,
+            'type': param_type,
+            'default': default,
+        }
     
     def _extract_imports(self) -> List[str]:
         """Extract import statements."""
@@ -299,6 +402,22 @@ class JavaScriptParser(BaseParser):
         if name.startswith('_'):
             return 'private'
         return 'public'
+    
+    def _get_visibility_from_modifier(self, modifier: Optional[str], name: str) -> str:
+        """
+        Determine visibility from TypeScript access modifier or name.
+        
+        Args:
+            modifier: TypeScript access modifier (public, private, protected, readonly, static)
+            name: Method or property name
+        
+        Returns:
+            Visibility string (public, private, or protected)
+        """
+        if modifier in ['private', 'protected', 'public']:
+            return modifier
+        # Fall back to name-based detection
+        return self._get_visibility(name)
     
     def _empty_result(self) -> Dict[str, Any]:
         """Return empty result structure."""
