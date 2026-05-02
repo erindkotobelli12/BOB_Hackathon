@@ -1,0 +1,71 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+
+# Output files (keep small examples, ignore large scans)
+output/documentation.json
+output/documentation.md
+output/flask_scan.json
+output/flask_scan.md
+output/completion_after.json
+*.log
+
+# Temporary files
+*.tmp
+*.bak
+*.backup
+.env
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Large scan results (regenerate as needed)
+*_scan.json
+*_scan.md
+# Exception: keep self_scan as demo
+!codebase-scanner/output/self_scan.json
+!codebase-scanner/output/self_scan.md
