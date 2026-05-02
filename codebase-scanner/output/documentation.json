@@ -1,39 +1,44 @@
 {
   "scan_metadata": {
-    "timestamp": "2026-05-02T20:36:41.495840Z",
-    "root_directory": "C:\\Users\\USER\\OneDrive\\Documents\\GitHub\\BOB_Hackathon\\codebase-scanner\\test_dir",
-    "total_files": 1,
-    "total_functions": 3,
-    "total_classes": 1,
+    "timestamp": "2026-05-02T21:58:34.133136Z",
+    "root_directory": "C:\\Users\\I.C.T\\OneDrive\\Documents\\git\\BOB_Hackathon\\demo",
+    "total_files": 4,
+    "total_functions": 13,
+    "total_classes": 2,
     "languages_detected": [
       "python"
     ]
   },
   "files": [
     {
-      "path": "C:\\Users\\USER\\OneDrive\\Documents\\GitHub\\BOB_Hackathon\\codebase-scanner\\test_dir\\test_sample.py",
-      "size_bytes": 673,
-      "line_count": 34,
+      "path": "C:\\Users\\I.C.T\\OneDrive\\Documents\\git\\BOB_Hackathon\\demo\\__init__.py",
+      "size_bytes": 1023,
+      "line_count": 42,
       "language": "python",
       "classes": [
         {
-          "name": "DataProcessor",
-          "line_start": 16,
-          "line_end": 26,
+          "name": "Singleton",
+          "line_start": 30,
+          "line_end": 40,
           "docstring": null,
           "methods": [
             {
-              "name": "__init__",
-              "line_start": 18,
-              "line_end": 20,
+              "name": "__new__",
+              "line_start": 33,
+              "line_end": 36,
               "parameters": [
                 {
-                  "name": "self",
+                  "name": "cls",
                   "type": null,
                   "default": null
                 },
                 {
-                  "name": "name",
+                  "name": "*args",
+                  "type": null,
+                  "default": null
+                },
+                {
+                  "name": "**kwargs",
                   "type": null,
                   "default": null
                 }
@@ -45,41 +50,21 @@
               "visibility": "protected"
             },
             {
-              "name": "add_item",
-              "line_start": 22,
-              "line_end": 23,
+              "name": "clear_instances",
+              "line_start": 39,
+              "line_end": 40,
               "parameters": [
                 {
-                  "name": "self",
-                  "type": null,
-                  "default": null
-                },
-                {
-                  "name": "item",
+                  "name": "cls",
                   "type": null,
                   "default": null
                 }
               ],
-              "return_type": null,
+              "return_type": "None",
               "docstring": null,
-              "decorators": [],
-              "is_async": false,
-              "visibility": "public"
-            },
-            {
-              "name": "get_total",
-              "line_start": 25,
-              "line_end": 26,
-              "parameters": [
-                {
-                  "name": "self",
-                  "type": null,
-                  "default": null
-                }
+              "decorators": [
+                "@classmethod"
               ],
-              "return_type": null,
-              "docstring": null,
-              "decorators": [],
               "is_async": false,
               "visibility": "public"
             }
@@ -90,119 +75,474 @@
       ],
       "functions": [
         {
-          "name": "calculate_sum",
-          "line_start": 4,
-          "line_end": 5,
+          "name": "timer",
+          "line_start": 6,
+          "line_end": 14,
           "parameters": [
             {
-              "name": "a",
-              "type": null,
-              "default": null
-            },
-            {
-              "name": "b",
-              "type": null,
+              "name": "func",
+              "type": "Callable",
               "default": null
             }
           ],
-          "return_type": null,
+          "return_type": "Callable",
           "docstring": null,
           "decorators": [],
           "is_async": false
         },
         {
-          "name": "process_data",
-          "line_start": 8,
-          "line_end": 13,
+          "name": "memoize",
+          "line_start": 17,
+          "line_end": 27,
           "parameters": [
             {
-              "name": "items",
-              "type": null,
+              "name": "func",
+              "type": "Callable",
               "default": null
-            },
-            {
-              "name": "threshold",
-              "type": null,
-              "default": "0.5"
             }
           ],
-          "return_type": null,
+          "return_type": "Callable",
           "docstring": null,
           "decorators": [],
           "is_async": false
-        },
+        }
+      ],
+      "imports": [
+        "from typing import Any",
+        "from typing import Callable",
+        "import functools",
+        "import time"
+      ],
+      "documentation_coverage": 0.0
+    },
+    {
+      "path": "C:\\Users\\I.C.T\\OneDrive\\Documents\\git\\BOB_Hackathon\\demo\\async_operations.py",
+      "size_bytes": 2945,
+      "line_count": 106,
+      "language": "python",
+      "classes": [],
+      "functions": [
         {
           "name": "fetch_data",
-          "line_start": 29,
-          "line_end": 32,
+          "line_start": 6,
+          "line_end": 20,
           "parameters": [
             {
               "name": "url",
-              "type": null,
+              "type": "str",
               "default": null
             },
             {
               "name": "timeout",
-              "type": null,
+              "type": "int",
               "default": "30"
             }
           ],
-          "return_type": null,
-          "docstring": null,
+          "return_type": "Dict",
+          "docstring": "Fetch data from a URL asynchronously.\n\nArgs:\n    url: The URL to fetch data from\n    timeout: Request timeout in seconds\n\nReturns:\n    Dictionary containing the JSON response",
+          "decorators": [],
+          "is_async": true
+        },
+        {
+          "name": "process_batch",
+          "line_start": 23,
+          "line_end": 40,
+          "parameters": [
+            {
+              "name": "items",
+              "type": "List[str]",
+              "default": null
+            },
+            {
+              "name": "batch_size",
+              "type": "int",
+              "default": "10"
+            }
+          ],
+          "return_type": "List[str]",
+          "docstring": "Process items in batches asynchronously.\n\nArgs:\n    items: List of strings to process\n    batch_size: Number of items to process per batch\n\nReturns:\n    List of processed strings in lowercase",
+          "decorators": [],
+          "is_async": true
+        },
+        {
+          "name": "parallel_fetch",
+          "line_start": 43,
+          "line_end": 55,
+          "parameters": [
+            {
+              "name": "urls",
+              "type": "List[str]",
+              "default": null
+            }
+          ],
+          "return_type": "List[Optional[Dict]]",
+          "docstring": "Fetch data from multiple URLs in parallel.\n\nArgs:\n    urls: List of URLs to fetch\n\nReturns:\n    List of dictionaries or None for failed requests",
+          "decorators": [],
+          "is_async": true
+        },
+        {
+          "name": "retry_operation",
+          "line_start": 58,
+          "line_end": 83,
+          "parameters": [
+            {
+              "name": "operation",
+              "type": "Callable[[], Awaitable[Any]]",
+              "default": null
+            },
+            {
+              "name": "max_retries",
+              "type": "int",
+              "default": "3"
+            },
+            {
+              "name": "delay",
+              "type": "float",
+              "default": "1.0"
+            }
+          ],
+          "return_type": "Any",
+          "docstring": "Retry an async operation with exponential backoff.\n\nArgs:\n    operation: Async callable to retry\n    max_retries: Maximum number of retry attempts\n    delay: Base delay between retries in seconds\n\nReturns:\n    Result of the operation\n\nRaises:\n    Exception: If all retry attempts fail",
+          "decorators": [],
+          "is_async": true
+        },
+        {
+          "name": "stream_processor",
+          "line_start": 86,
+          "line_end": 104,
+          "parameters": [
+            {
+              "name": "data_stream",
+              "type": "AsyncIterator[Any]",
+              "default": null
+            },
+            {
+              "name": "callback",
+              "type": "Callable[[Any], Awaitable[None]]",
+              "default": null
+            }
+          ],
+          "return_type": "int",
+          "docstring": "Process items from an async stream.\n\nArgs:\n    data_stream: Async iterator of items to process\n    callback: Async function to call for each item\n\nReturns:\n    Total number of items processed",
           "decorators": [],
           "is_async": true
         }
       ],
       "imports": [
-        "import asyncio"
+        "import asyncio",
+        "from typing import List",
+        "from typing import Dict",
+        "from typing import Optional",
+        "from typing import Callable",
+        "from typing import Any",
+        "from typing import AsyncIterator",
+        "from typing import Awaitable",
+        "import aiohttp"
       ],
-      "documentation_coverage": 0.0
+      "documentation_coverage": 100.0
+    },
+    {
+      "path": "C:\\Users\\I.C.T\\OneDrive\\Documents\\git\\BOB_Hackathon\\demo\\data_processor.py",
+      "size_bytes": 5156,
+      "line_count": 137,
+      "language": "python",
+      "classes": [
+        {
+          "name": "DataProcessor",
+          "line_start": 11,
+          "line_end": 135,
+          "docstring": "Process and transform text data with configuration management.\n\nThe DataProcessor class handles batch processing of string items, converting\nthem to uppercase while optionally filtering empty entries. It maintains\nstatistics about processed items and supports configuration export.\n\nAttributes:\n    name (str): Identifier name for this processor instance\n    config (Dict): Configuration dictionary for processor settings\n    processed_count (int): Running count of total items processed\n\nExample:\n    >>> processor = DataProcessor(\"main\", {\"batch_size\": 100})\n    >>> result = processor.process_items([\"hello\", \"world\"])\n    >>> print(result)\n    ['HELLO', 'WORLD']",
+          "methods": [
+            {
+              "name": "__init__",
+              "line_start": 30,
+              "line_end": 43,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                },
+                {
+                  "name": "name",
+                  "type": "str",
+                  "default": null
+                },
+                {
+                  "name": "config",
+                  "type": "Optional[Dict]",
+                  "default": "None"
+                }
+              ],
+              "return_type": null,
+              "docstring": "Initialize a new DataProcessor instance.\n\nArgs:\n    name (str): Unique identifier name for this processor\n    config (Optional[Dict], optional): Configuration dictionary containing\n        processor settings. Defaults to None (empty dict).\n\nExample:\n    >>> processor = DataProcessor(\"batch_processor\", {\"timeout\": 30})",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "protected"
+            },
+            {
+              "name": "process_items",
+              "line_start": 45,
+              "line_end": 71,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                },
+                {
+                  "name": "items",
+                  "type": "List[str]",
+                  "default": null
+                },
+                {
+                  "name": "filter_empty",
+                  "type": "bool",
+                  "default": "True"
+                }
+              ],
+              "return_type": "List[str]",
+              "docstring": "Process a list of string items by converting to uppercase.\n\nTransforms all input strings to uppercase and optionally filters out\nempty or whitespace-only strings. Updates the internal processed count.\n\nArgs:\n    items (List[str]): List of string items to process\n    filter_empty (bool, optional): If True, removes empty/whitespace-only\n        strings before processing. Defaults to True.\n\nReturns:\n    List[str]: List of processed strings in uppercase\n\nExample:\n    >>> processor = DataProcessor(\"test\")\n    >>> processor.process_items([\"hello\", \"\", \"world\"], filter_empty=True)\n    ['HELLO', 'WORLD']\n    >>> processor.process_items([\"hello\", \"\", \"world\"], filter_empty=False)\n    ['HELLO', '', 'WORLD']",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "public"
+            },
+            {
+              "name": "get_statistics",
+              "line_start": 73,
+              "line_end": 91,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": "Dict[str, int]",
+              "docstring": "Get processing statistics for this processor instance.\n\nReturns:\n    Dict[str, int]: Dictionary containing:\n        - 'total_processed': Total number of items processed\n        - 'config_keys': Number of configuration keys set\n\nExample:\n    >>> processor = DataProcessor(\"test\", {\"key1\": \"value1\"})\n    >>> processor.process_items([\"a\", \"b\", \"c\"])\n    >>> stats = processor.get_statistics()\n    >>> print(stats)\n    {'total_processed': 3, 'config_keys': 1}",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "public"
+            },
+            {
+              "name": "reset",
+              "line_start": 93,
+              "line_end": 106,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": "None",
+              "docstring": "Reset the processed item counter to zero.\n\nClears the internal count of processed items while preserving\nthe configuration and processor name.\n\nExample:\n    >>> processor = DataProcessor(\"test\")\n    >>> processor.process_items([\"a\", \"b\"])\n    >>> processor.reset()\n    >>> processor.get_statistics()['total_processed']\n    0",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "public"
+            },
+            {
+              "name": "export_config",
+              "line_start": 108,
+              "line_end": 135,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                },
+                {
+                  "name": "filepath",
+                  "type": "str",
+                  "default": null
+                }
+              ],
+              "return_type": "bool",
+              "docstring": "Export the processor configuration to a JSON file.\n\nWrites the current configuration dictionary to a JSON file with\npretty-printing (2-space indentation).\n\nArgs:\n    filepath (str): Path to the output JSON file\n\nReturns:\n    bool: True if export succeeded, False if an error occurred\n\nExample:\n    >>> processor = DataProcessor(\"test\", {\"timeout\": 30})\n    >>> success = processor.export_config(\"config.json\")\n    >>> print(success)\n    True\n\nNote:\n    Errors are printed to stdout but do not raise exceptions.",
+              "decorators": [],
+              "is_async": false,
+              "visibility": "public"
+            }
+          ],
+          "base_classes": [],
+          "decorators": []
+        }
+      ],
+      "functions": [],
+      "imports": [
+        "from typing import List",
+        "from typing import Dict",
+        "from typing import Optional",
+        "import json"
+      ],
+      "documentation_coverage": 100.0
+    },
+    {
+      "path": "C:\\Users\\I.C.T\\OneDrive\\Documents\\git\\BOB_Hackathon\\demo\\utils.py",
+      "size_bytes": 6582,
+      "line_count": 194,
+      "language": "python",
+      "classes": [],
+      "functions": [
+        {
+          "name": "validate_email",
+          "line_start": 16,
+          "line_end": 38,
+          "parameters": [
+            {
+              "name": "email",
+              "type": "str",
+              "default": null
+            }
+          ],
+          "return_type": "bool",
+          "docstring": "Validate an email address using regex pattern matching.\n\nChecks if the provided string matches the standard email format:\nlocalpart@domain.tld where localpart can contain alphanumeric characters,\ndots, underscores, percent signs, plus and minus signs.\n\nArgs:\n    email (str): Email address string to validate\n\nReturns:\n    bool: True if email matches valid format, False otherwise\n\nExample:\n    >>> validate_email(\"user@example.com\")\n    True\n    >>> validate_email(\"invalid.email\")\n    False\n    >>> validate_email(\"user@domain.co.uk\")\n    True",
+          "decorators": [],
+          "is_async": false
+        },
+        {
+          "name": "calculate_average",
+          "line_start": 41,
+          "line_end": 66,
+          "parameters": [
+            {
+              "name": "numbers",
+              "type": "List[Union[int, float]]",
+              "default": null
+            }
+          ],
+          "return_type": "float",
+          "docstring": "Calculate the arithmetic mean of a list of numbers.\n\nComputes the average by summing all numbers and dividing by the count.\n\nArgs:\n    numbers (List[Union[int, float]]): List of numeric values to average\n\nReturns:\n    float: The arithmetic mean of the input numbers\n\nRaises:\n    ValueError: If the input list is empty\n\nExample:\n    >>> calculate_average([1, 2, 3, 4, 5])\n    3.0\n    >>> calculate_average([10.5, 20.5, 30.0])\n    20.333333333333332\n    >>> calculate_average([])\n    Traceback (most recent call last):\n    ValueError: Cannot calculate average of empty list",
+          "decorators": [],
+          "is_async": false
+        },
+        {
+          "name": "merge_dictionaries",
+          "line_start": 69,
+          "line_end": 99,
+          "parameters": [
+            {
+              "name": "dict1",
+              "type": "Dict",
+              "default": null
+            },
+            {
+              "name": "dict2",
+              "type": "Dict",
+              "default": null
+            },
+            {
+              "name": "overwrite",
+              "type": "bool",
+              "default": "True"
+            }
+          ],
+          "return_type": "Dict",
+          "docstring": "Merge two dictionaries with configurable overwrite behavior.\n\nCreates a new dictionary by combining dict1 and dict2. When keys overlap,\nthe overwrite parameter controls whether dict2 values replace dict1 values.\n\nArgs:\n    dict1 (Dict): First dictionary (base)\n    dict2 (Dict): Second dictionary (to merge in)\n    overwrite (bool, optional): If True, dict2 values overwrite dict1 values\n        for duplicate keys. If False, dict1 values are preserved.\n        Defaults to True.\n\nReturns:\n    Dict: New dictionary containing merged key-value pairs\n\nExample:\n    >>> merge_dictionaries({'a': 1, 'b': 2}, {'b': 3, 'c': 4})\n    {'a': 1, 'b': 3, 'c': 4}\n    >>> merge_dictionaries({'a': 1, 'b': 2}, {'b': 3, 'c': 4}, overwrite=False)\n    {'a': 1, 'b': 2, 'c': 4}\n\nNote:\n    The original dictionaries are not modified; a new dictionary is returned.",
+          "decorators": [],
+          "is_async": false
+        },
+        {
+          "name": "parse_csv_line",
+          "line_start": 102,
+          "line_end": 127,
+          "parameters": [
+            {
+              "name": "line",
+              "type": "str",
+              "default": null
+            },
+            {
+              "name": "delimiter",
+              "type": "str",
+              "default": "','"
+            }
+          ],
+          "return_type": "List[str]",
+          "docstring": "Parse a CSV line into a list of trimmed field values.\n\nSplits a string by the specified delimiter and strips whitespace from\neach resulting field.\n\nArgs:\n    line (str): CSV line string to parse\n    delimiter (str, optional): Character(s) to split on. Defaults to ','.\n\nReturns:\n    List[str]: List of trimmed field values\n\nExample:\n    >>> parse_csv_line(\"apple, banana, cherry\")\n    ['apple', 'banana', 'cherry']\n    >>> parse_csv_line(\"name|age|city\", delimiter='|')\n    ['name', 'age', 'city']\n    >>> parse_csv_line(\"  spaces  ,  everywhere  \")\n    ['spaces', 'everywhere']\n\nNote:\n    This is a simple parser and does not handle quoted fields with\n    embedded delimiters. For complex CSV parsing, use the csv module.",
+          "decorators": [],
+          "is_async": false
+        },
+        {
+          "name": "format_currency",
+          "line_start": 130,
+          "line_end": 157,
+          "parameters": [
+            {
+              "name": "amount",
+              "type": "float",
+              "default": null
+            },
+            {
+              "name": "currency",
+              "type": "str",
+              "default": "'USD'"
+            }
+          ],
+          "return_type": "str",
+          "docstring": "Format a numeric amount as a currency string with symbol.\n\nConverts a float to a formatted currency string with thousands separators\nand two decimal places. Supports USD, EUR, and GBP with their respective\nsymbols. Other currency codes are displayed as-is.\n\nArgs:\n    amount (float): Numeric amount to format\n    currency (str, optional): Three-letter currency code (USD, EUR, GBP).\n        Defaults to 'USD'.\n\nReturns:\n    str: Formatted currency string with symbol and amount\n\nExample:\n    >>> format_currency(1234.56)\n    '$1,234.56'\n    >>> format_currency(1000.00, 'EUR')\n    '€1,000.00'\n    >>> format_currency(999.99, 'GBP')\n    '£999.99'\n    >>> format_currency(500.00, 'JPY')\n    'JPY500.00'",
+          "decorators": [],
+          "is_async": false
+        },
+        {
+          "name": "find_duplicates",
+          "line_start": 160,
+          "line_end": 192,
+          "parameters": [
+            {
+              "name": "items",
+              "type": "List[str]",
+              "default": null
+            }
+          ],
+          "return_type": "Tuple[List[str], int]",
+          "docstring": "Find duplicate items in a list and return them with count.\n\nIdentifies all items that appear more than once in the input list,\npreserving the order of first duplicate occurrence.\n\nArgs:\n    items (List[str]): List of strings to check for duplicates\n\nReturns:\n    Tuple[List[str], int]: A tuple containing:\n        - List of duplicate items (in order of first duplicate occurrence)\n        - Count of total duplicate items found\n\nExample:\n    >>> find_duplicates(['a', 'b', 'c', 'a', 'd', 'b'])\n    (['a', 'b'], 2)\n    >>> find_duplicates(['x', 'y', 'z'])\n    ([], 0)\n    >>> find_duplicates(['test', 'test', 'test'])\n    (['test'], 1)\n\nNote:\n    Each duplicate item appears only once in the returned list, even if\n    it occurs multiple times in the input.",
+          "decorators": [],
+          "is_async": false
+        }
+      ],
+      "imports": [
+        "from typing import List",
+        "from typing import Dict",
+        "from typing import Union",
+        "from typing import Tuple",
+        "import re"
+      ],
+      "documentation_coverage": 100.0
     }
   ],
   "coverage_report": {
-    "overall_coverage": 0.0,
-    "total_items": 6,
-    "documented_items": 0,
-    "undocumented_items_count": 6,
+    "overall_coverage": 80.0,
+    "total_items": 20,
+    "documented_items": 16,
+    "undocumented_items_count": 4,
     "by_language": {
-      "python": 0.0
+      "python": 80.0
     },
     "undocumented_items": [
       {
-        "file": "C:\\Users\\USER\\OneDrive\\Documents\\GitHub\\BOB_Hackathon\\codebase-scanner\\test_dir\\test_sample.py",
+        "file": "C:\\Users\\I.C.T\\OneDrive\\Documents\\git\\BOB_Hackathon\\demo\\__init__.py",
         "type": "function",
-        "name": "calculate_sum",
-        "line": 4
+        "name": "timer",
+        "line": 6
       },
       {
-        "file": "C:\\Users\\USER\\OneDrive\\Documents\\GitHub\\BOB_Hackathon\\codebase-scanner\\test_dir\\test_sample.py",
+        "file": "C:\\Users\\I.C.T\\OneDrive\\Documents\\git\\BOB_Hackathon\\demo\\__init__.py",
         "type": "function",
-        "name": "process_data",
-        "line": 8
+        "name": "memoize",
+        "line": 17
       },
       {
-        "file": "C:\\Users\\USER\\OneDrive\\Documents\\GitHub\\BOB_Hackathon\\codebase-scanner\\test_dir\\test_sample.py",
-        "type": "function",
-        "name": "fetch_data",
-        "line": 29
-      },
-      {
-        "file": "C:\\Users\\USER\\OneDrive\\Documents\\GitHub\\BOB_Hackathon\\codebase-scanner\\test_dir\\test_sample.py",
+        "file": "C:\\Users\\I.C.T\\OneDrive\\Documents\\git\\BOB_Hackathon\\demo\\__init__.py",
         "type": "method",
-        "name": "DataProcessor.__init__",
-        "line": 18
+        "name": "Singleton.__new__",
+        "line": 33
       },
       {
-        "file": "C:\\Users\\USER\\OneDrive\\Documents\\GitHub\\BOB_Hackathon\\codebase-scanner\\test_dir\\test_sample.py",
+        "file": "C:\\Users\\I.C.T\\OneDrive\\Documents\\git\\BOB_Hackathon\\demo\\__init__.py",
         "type": "method",
-        "name": "DataProcessor.add_item",
-        "line": 22
-      },
-      {
-        "file": "C:\\Users\\USER\\OneDrive\\Documents\\GitHub\\BOB_Hackathon\\codebase-scanner\\test_dir\\test_sample.py",
-        "type": "method",
-        "name": "DataProcessor.get_total",
-        "line": 25
+        "name": "Singleton.clear_instances",
+        "line": 39
       }
     ]
   }

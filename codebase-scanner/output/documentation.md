@@ -1,18 +1,18 @@
 # 📚 Documentation Report: demo
 
-**Generated:** 2026-05-01 16:55:19 UTC
+**Generated:** 2026-05-02 21:58:34 UTC
 **Root Directory:** `C:\Users\I.C.T\OneDrive\Documents\git\BOB_Hackathon\demo`
 
 ## 📊 Coverage Summary
 
 | Language | Files | Functions | Coverage % |
 |----------|-------|-----------|------------|
-| python | 4 | 20 | 25.0% |
-| **Total** | **4** | **20** | **25.0%** |
+| python | 4 | 20 | 80.0% |
+| **Total** | **4** | **20** | **80.0%** |
 
 ## ⚠️ Undocumented Items
 
-Found **15** undocumented functions/methods:
+Found **4** undocumented functions/methods:
 
 ### `C:\Users\I.C.T\OneDrive\Documents\git\BOB_Hackathon\demo\__init__.py`
 
@@ -20,23 +20,6 @@ Found **15** undocumented functions/methods:
 - **memoize** (function) - Line 17
 - **Singleton.__new__** (method) - Line 33
 - **Singleton.clear_instances** (method) - Line 39
-
-### `C:\Users\I.C.T\OneDrive\Documents\git\BOB_Hackathon\demo\data_processor.py`
-
-- **DataProcessor.__init__** (method) - Line 6
-- **DataProcessor.process_items** (method) - Line 11
-- **DataProcessor.get_statistics** (method) - Line 19
-- **DataProcessor.reset** (method) - Line 25
-- **DataProcessor.export_config** (method) - Line 28
-
-### `C:\Users\I.C.T\OneDrive\Documents\git\BOB_Hackathon\demo\utils.py`
-
-- **validate_email** (function) - Line 5
-- **calculate_average** (function) - Line 10
-- **merge_dictionaries** (function) - Line 16
-- **parse_csv_line** (function) - Line 25
-- **format_currency** (function) - Line 29
-- **find_duplicates** (function) - Line 35
 
 ## 📄 File Documentation
 
@@ -198,31 +181,48 @@ Found **15** undocumented functions/methods:
 
 ##### Class: `DataProcessor`
 
-**Line:** 5
+**Line:** 11
 
-**Documentation:** _No documentation_
+**Documentation:**
+
+> Process and transform text data with configuration management.
+> 
+> The DataProcessor class handles batch processing of string items, converting
+> them to uppercase while optionally filtering empty entries. It maintains
+> statistics about processed items and supports configuration export.
+> 
+> Attributes:
+>     name (str): Identifier name for this processor instance
+>     config (Dict): Configuration dictionary for processor settings
+>     processed_count (int): Running count of total items processed
+> 
+> Example:
+>     >>> processor = DataProcessor("main", {"batch_size": 100})
+>     >>> result = processor.process_items(["hello", "world"])
+>     >>> print(result)
+>     ['HELLO', 'WORLD']
 
 **Methods:**
 
-- **`__init__(self, name, config)`** (Line 6)
+- **`__init__(self, name, config)`** (Line 30)
   - Returns: `None`
-  - _No documentation_
+  - Initialize a new DataProcessor instance.
 
-- **`process_items(self, items, filter_empty)`** (Line 11)
+- **`process_items(self, items, filter_empty)`** (Line 45)
   - Returns: `List[str]`
-  - _No documentation_
+  - Process a list of string items by converting to uppercase.
 
-- **`get_statistics(self)`** (Line 19)
+- **`get_statistics(self)`** (Line 73)
   - Returns: `Dict[str, int]`
-  - _No documentation_
+  - Get processing statistics for this processor instance.
 
-- **`reset(self)`** (Line 25)
+- **`reset(self)`** (Line 93)
   - Returns: `None`
-  - _No documentation_
+  - Reset the processed item counter to zero.
 
-- **`export_config(self, filepath)`** (Line 28)
+- **`export_config(self, filepath)`** (Line 108)
   - Returns: `bool`
-  - _No documentation_
+  - Export the processor configuration to a JSON file.
 
 ---
 
@@ -234,61 +234,200 @@ Found **15** undocumented functions/methods:
 
 ##### `validate_email(email)`
 
-**Line:** 5 | **Returns:** `bool`
+**Line:** 16 | **Returns:** `bool`
 
 **Parameters:**
 - `email` (str)
 
-**Documentation:** _No documentation_
+**Documentation:**
+
+> Validate an email address using regex pattern matching.
+> 
+> Checks if the provided string matches the standard email format:
+> localpart@domain.tld where localpart can contain alphanumeric characters,
+> dots, underscores, percent signs, plus and minus signs.
+> 
+> Args:
+>     email (str): Email address string to validate
+> 
+> Returns:
+>     bool: True if email matches valid format, False otherwise
+> 
+> Example:
+>     >>> validate_email("user@example.com")
+>     True
+>     >>> validate_email("invalid.email")
+>     False
+>     >>> validate_email("user@domain.co.uk")
+>     True
 
 ##### `calculate_average(numbers)`
 
-**Line:** 10 | **Returns:** `float`
+**Line:** 41 | **Returns:** `float`
 
 **Parameters:**
 - `numbers` (List[Union[int, float]])
 
-**Documentation:** _No documentation_
+**Documentation:**
+
+> Calculate the arithmetic mean of a list of numbers.
+> 
+> Computes the average by summing all numbers and dividing by the count.
+> 
+> Args:
+>     numbers (List[Union[int, float]]): List of numeric values to average
+> 
+> Returns:
+>     float: The arithmetic mean of the input numbers
+> 
+> Raises:
+>     ValueError: If the input list is empty
+> 
+> Example:
+>     >>> calculate_average([1, 2, 3, 4, 5])
+>     3.0
+>     >>> calculate_average([10.5, 20.5, 30.0])
+>     20.333333333333332
+>     >>> calculate_average([])
+>     Traceback (most recent call last):
+>     ValueError: Cannot calculate average of empty list
 
 ##### `merge_dictionaries(dict1, dict2, overwrite)`
 
-**Line:** 16 | **Returns:** `Dict`
+**Line:** 69 | **Returns:** `Dict`
 
 **Parameters:**
 - `dict1` (Dict)
 - `dict2` (Dict)
 - `overwrite` (bool)
 
-**Documentation:** _No documentation_
+**Documentation:**
+
+> Merge two dictionaries with configurable overwrite behavior.
+> 
+> Creates a new dictionary by combining dict1 and dict2. When keys overlap,
+> the overwrite parameter controls whether dict2 values replace dict1 values.
+> 
+> Args:
+>     dict1 (Dict): First dictionary (base)
+>     dict2 (Dict): Second dictionary (to merge in)
+>     overwrite (bool, optional): If True, dict2 values overwrite dict1 values
+>         for duplicate keys. If False, dict1 values are preserved.
+>         Defaults to True.
+> 
+> Returns:
+>     Dict: New dictionary containing merged key-value pairs
+> 
+> Example:
+>     >>> merge_dictionaries({'a': 1, 'b': 2}, {'b': 3, 'c': 4})
+>     {'a': 1, 'b': 3, 'c': 4}
+>     >>> merge_dictionaries({'a': 1, 'b': 2}, {'b': 3, 'c': 4}, overwrite=False)
+>     {'a': 1, 'b': 2, 'c': 4}
+> 
+> Note:
+>     The original dictionaries are not modified; a new dictionary is returned.
 
 ##### `parse_csv_line(line, delimiter)`
 
-**Line:** 25 | **Returns:** `List[str]`
+**Line:** 102 | **Returns:** `List[str]`
 
 **Parameters:**
 - `line` (str)
 - `delimiter` (str)
 
-**Documentation:** _No documentation_
+**Documentation:**
+
+> Parse a CSV line into a list of trimmed field values.
+> 
+> Splits a string by the specified delimiter and strips whitespace from
+> each resulting field.
+> 
+> Args:
+>     line (str): CSV line string to parse
+>     delimiter (str, optional): Character(s) to split on. Defaults to ','.
+> 
+> Returns:
+>     List[str]: List of trimmed field values
+> 
+> Example:
+>     >>> parse_csv_line("apple, banana, cherry")
+>     ['apple', 'banana', 'cherry']
+>     >>> parse_csv_line("name|age|city", delimiter='|')
+>     ['name', 'age', 'city']
+>     >>> parse_csv_line("  spaces  ,  everywhere  ")
+>     ['spaces', 'everywhere']
+> 
+> Note:
+>     This is a simple parser and does not handle quoted fields with
+>     embedded delimiters. For complex CSV parsing, use the csv module.
 
 ##### `format_currency(amount, currency)`
 
-**Line:** 29 | **Returns:** `str`
+**Line:** 130 | **Returns:** `str`
 
 **Parameters:**
 - `amount` (float)
 - `currency` (str)
 
-**Documentation:** _No documentation_
+**Documentation:**
+
+> Format a numeric amount as a currency string with symbol.
+> 
+> Converts a float to a formatted currency string with thousands separators
+> and two decimal places. Supports USD, EUR, and GBP with their respective
+> symbols. Other currency codes are displayed as-is.
+> 
+> Args:
+>     amount (float): Numeric amount to format
+>     currency (str, optional): Three-letter currency code (USD, EUR, GBP).
+>         Defaults to 'USD'.
+> 
+> Returns:
+>     str: Formatted currency string with symbol and amount
+> 
+> Example:
+>     >>> format_currency(1234.56)
+>     '$1,234.56'
+>     >>> format_currency(1000.00, 'EUR')
+>     '€1,000.00'
+>     >>> format_currency(999.99, 'GBP')
+>     '£999.99'
+>     >>> format_currency(500.00, 'JPY')
+>     'JPY500.00'
 
 ##### `find_duplicates(items)`
 
-**Line:** 35 | **Returns:** `Tuple[List[str], int]`
+**Line:** 160 | **Returns:** `Tuple[List[str], int]`
 
 **Parameters:**
 - `items` (List[str])
 
-**Documentation:** _No documentation_
+**Documentation:**
+
+> Find duplicate items in a list and return them with count.
+> 
+> Identifies all items that appear more than once in the input list,
+> preserving the order of first duplicate occurrence.
+> 
+> Args:
+>     items (List[str]): List of strings to check for duplicates
+> 
+> Returns:
+>     Tuple[List[str], int]: A tuple containing:
+>         - List of duplicate items (in order of first duplicate occurrence)
+>         - Count of total duplicate items found
+> 
+> Example:
+>     >>> find_duplicates(['a', 'b', 'c', 'a', 'd', 'b'])
+>     (['a', 'b'], 2)
+>     >>> find_duplicates(['x', 'y', 'z'])
+>     ([], 0)
+>     >>> find_duplicates(['test', 'test', 'test'])
+>     (['test'], 1)
+> 
+> Note:
+>     Each duplicate item appears only once in the returned list, even if
+>     it occurs multiple times in the input.
 
 ---
 
@@ -297,9 +436,9 @@ Found **15** undocumented functions/methods:
 - **Total Files Scanned:** 4
 - **Total Functions/Methods:** 20
 - **Total Classes:** 2
-- **Documentation Coverage:** 25.0%
-- **Documented Items:** 5
-- **Undocumented Items:** 15
+- **Documentation Coverage:** 80.0%
+- **Documented Items:** 16
+- **Undocumented Items:** 4
 
 ---
 
