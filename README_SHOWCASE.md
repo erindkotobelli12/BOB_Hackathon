@@ -293,35 +293,44 @@ cat ../output/flask_scan.md
 python scanner.py --root /tmp/flask/src --write-docs
 ```
 
-### Expected Output
+### Actual Output
 ```
-============================================================
-DOCUMENTATION GENERATION MODE
-============================================================
-Initial documentation coverage: 60.17%
-Generating documentation for undocumented items...
+2026-05-02 22:32:04 - codebase_scanner - INFO - Starting codebase scan
+2026-05-02 22:32:04 - codebase_scanner - INFO - Root directory: /tmp/flask/src
+2026-05-02 22:32:04 - codebase_scanner - INFO - Walking directory tree...
+2026-05-02 22:32:04 - codebase_scanner - INFO - Starting directory walk from: C:\tmp\flask\src
+2026-05-02 22:32:04 - codebase_scanner - INFO - Directory walk completed
+2026-05-02 22:32:04 - codebase_scanner - INFO - Files to process: 24
+2026-05-02 22:32:04 - codebase_scanner - INFO - Skipped (excluded): 0
+2026-05-02 22:32:04 - codebase_scanner - INFO - Skipped (extension): 2
+2026-05-02 22:32:04 - codebase_scanner - INFO - Skipped (size): 0
+2026-05-02 22:32:04 - codebase_scanner - INFO - Skipped (binary): 0
+2026-05-02 22:32:04 - codebase_scanner - INFO - Skipped (error): 0
+2026-05-02 22:32:04 - codebase_scanner - INFO - Calculating documentation coverage...
+2026-05-02 22:32:04 - codebase_scanner - INFO - Formatting output...
+2026-05-02 22:32:04 - codebase_scanner - INFO - Saving JSON results to: output\flask_scan
+2026-05-02 22:32:04 - codebase_scanner - INFO - Generating Markdown documentation...
+2026-05-02 22:32:04 - codebase_scanner - INFO - Saving Markdown results to: output\flask_scan.md
+2026-05-02 22:32:04 - codebase_scanner - INFO - ============================================================
+2026-05-02 22:32:04 - codebase_scanner - INFO - SCAN SUMMARY
+2026-05-02 22:32:04 - codebase_scanner - INFO - ============================================================
+2026-05-02 22:32:04 - codebase_scanner - INFO - Total files scanned: 24
+2026-05-02 22:32:04 - codebase_scanner - INFO - Total functions found: 72
+2026-05-02 22:32:04 - codebase_scanner - INFO - Total classes found: 53
+2026-05-02 22:32:04 - codebase_scanner - INFO - Languages detected: python
+2026-05-02 22:32:04 - codebase_scanner - INFO - Overall documentation coverage: 60.17%
+2026-05-02 22:32:04 - codebase_scanner - INFO - ============================================================
+2026-05-02 22:32:04 - codebase_scanner - INFO - Scan complete! Results saved to: output\flask_scan and output\flask_scan.md
+```
 
-Processing flask/app.py...
-  ✓ Documented 8 functions
-Processing flask/cli.py...
-  ✓ Documented 12 functions
-Processing flask/helpers.py...
-  ✓ Documented 15 functions
-...
+**Note**: The --write-docs feature is now fully implemented! To generate documentation:
+```bash
+# Setup credentials
+cp .env.example .env
+# Edit .env with your watsonx.ai credentials
 
-Re-scanning to verify coverage improvements...
-
-============================================================
-DOCUMENTATION GENERATION COMPLETE
-============================================================
-Files modified: 24
-Items documented: 115
-Coverage before: 60.17%
-Coverage after: 100.0%
-Improvement: +39.83%
-Time elapsed: 3.2 minutes
-
-Detailed report saved to: output/flask_documentation.md
+# Run with documentation generation
+python scanner.py --root /tmp/flask/src --write-docs
 ```
 
 ---

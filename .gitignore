@@ -66,6 +66,8 @@ Thumbs.db
 # Large scan results (regenerate as needed)
 *_scan.json
 *_scan.md
-# Exception: keep self_scan as demo
+# Exceptions: keep these as demos
 !codebase-scanner/output/self_scan.json
 !codebase-scanner/output/self_scan.md
+!codebase-scanner/output/flask_scan.json
+!codebase-scanner/output/flask_scan.md

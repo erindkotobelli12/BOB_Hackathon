@@ -1,0 +1,209 @@
+{
+  "scan_metadata": {
+    "timestamp": "2026-05-02T20:36:41.495840Z",
+    "root_directory": "C:\\Users\\USER\\OneDrive\\Documents\\GitHub\\BOB_Hackathon\\codebase-scanner\\test_dir",
+    "total_files": 1,
+    "total_functions": 3,
+    "total_classes": 1,
+    "languages_detected": [
+      "python"
+    ]
+  },
+  "files": [
+    {
+      "path": "C:\\Users\\USER\\OneDrive\\Documents\\GitHub\\BOB_Hackathon\\codebase-scanner\\test_dir\\test_sample.py",
+      "size_bytes": 673,
+      "line_count": 34,
+      "language": "python",
+      "classes": [
+        {
+          "name": "DataProcessor",
+          "line_start": 16,
+          "line_end": 26,
+          "docstring": null,
+          "methods": [
+            {
+              "name": "__init__",
+              "line_start": 18,
+              "line_end": 20,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                },
+                {
+                  "name": "name",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": null,
+              "docstring": null,
+              "decorators": [],
+              "is_async": false,
+              "visibility": "protected"
+            },
+            {
+              "name": "add_item",
+              "line_start": 22,
+              "line_end": 23,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                },
+                {
+                  "name": "item",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": null,
+              "docstring": null,
+              "decorators": [],
+              "is_async": false,
+              "visibility": "public"
+            },
+            {
+              "name": "get_total",
+              "line_start": 25,
+              "line_end": 26,
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": null,
+                  "default": null
+                }
+              ],
+              "return_type": null,
+              "docstring": null,
+              "decorators": [],
+              "is_async": false,
+              "visibility": "public"
+            }
+          ],
+          "base_classes": [],
+          "decorators": []
+        }
+      ],
+      "functions": [
+        {
+          "name": "calculate_sum",
+          "line_start": 4,
+          "line_end": 5,
+          "parameters": [
+            {
+              "name": "a",
+              "type": null,
+              "default": null
+            },
+            {
+              "name": "b",
+              "type": null,
+              "default": null
+            }
+          ],
+          "return_type": null,
+          "docstring": null,
+          "decorators": [],
+          "is_async": false
+        },
+        {
+          "name": "process_data",
+          "line_start": 8,
+          "line_end": 13,
+          "parameters": [
+            {
+              "name": "items",
+              "type": null,
+              "default": null
+            },
+            {
+              "name": "threshold",
+              "type": null,
+              "default": "0.5"
+            }
+          ],
+          "return_type": null,
+          "docstring": null,
+          "decorators": [],
+          "is_async": false
+        },
+        {
+          "name": "fetch_data",
+          "line_start": 29,
+          "line_end": 32,
+          "parameters": [
+            {
+              "name": "url",
+              "type": null,
+              "default": null
+            },
+            {
+              "name": "timeout",
+              "type": null,
+              "default": "30"
+            }
+          ],
+          "return_type": null,
+          "docstring": null,
+          "decorators": [],
+          "is_async": true
+        }
+      ],
+      "imports": [
+        "import asyncio"
+      ],
+      "documentation_coverage": 0.0
+    }
+  ],
+  "coverage_report": {
+    "overall_coverage": 0.0,
+    "total_items": 6,
+    "documented_items": 0,
+    "undocumented_items_count": 6,
+    "by_language": {
+      "python": 0.0
+    },
+    "undocumented_items": [
+      {
+        "file": "C:\\Users\\USER\\OneDrive\\Documents\\GitHub\\BOB_Hackathon\\codebase-scanner\\test_dir\\test_sample.py",
+        "type": "function",
+        "name": "calculate_sum",
+        "line": 4
+      },
+      {
+        "file": "C:\\Users\\USER\\OneDrive\\Documents\\GitHub\\BOB_Hackathon\\codebase-scanner\\test_dir\\test_sample.py",
+        "type": "function",
+        "name": "process_data",
+        "line": 8
+      },
+      {
+        "file": "C:\\Users\\USER\\OneDrive\\Documents\\GitHub\\BOB_Hackathon\\codebase-scanner\\test_dir\\test_sample.py",
+        "type": "function",
+        "name": "fetch_data",
+        "line": 29
+      },
+      {
+        "file": "C:\\Users\\USER\\OneDrive\\Documents\\GitHub\\BOB_Hackathon\\codebase-scanner\\test_dir\\test_sample.py",
+        "type": "method",
+        "name": "DataProcessor.__init__",
+        "line": 18
+      },
+      {
+        "file": "C:\\Users\\USER\\OneDrive\\Documents\\GitHub\\BOB_Hackathon\\codebase-scanner\\test_dir\\test_sample.py",
+        "type": "method",
+        "name": "DataProcessor.add_item",
+        "line": 22
+      },
+      {
+        "file": "C:\\Users\\USER\\OneDrive\\Documents\\GitHub\\BOB_Hackathon\\codebase-scanner\\test_dir\\test_sample.py",
+        "type": "method",
+        "name": "DataProcessor.get_total",
+        "line": 25
+      }
+    ]
+  }
+}

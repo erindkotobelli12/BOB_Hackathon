@@ -8,6 +8,7 @@ from typing import Dict, Any
 
 from core.walker import DirectoryWalker
 from core.extractor import MetadataExtractor
+from core.doc_generator import generate_documentation
 from formatters.json_formatter import JSONFormatter
 from formatters.markdown_formatter import MarkdownFormatter
 from utils.logger import setup_logger, log_scan_summary
@@ -31,13 +32,16 @@ def load_config(config_path: Path) -> Dict[str, Any]:
         sys.exit(1)
 
 
-def scan_codebase(config: Dict[str, Any], output_format: str = 'json') -> None:
+def scan_codebase(config: Dict[str, Any], output_format: str = 'json',
+                 write_docs: bool = False, dry_run: bool = False) -> None:
     """
     Scan codebase and generate documentation metadata.
     
     Args:
         config: Configuration dictionary
         output_format: Output format ('json', 'markdown', or 'both')
+        write_docs: Whether to generate and write missing docstrings
+        dry_run: If True, show what would be documented without API calls
     """
     # Setup logger
     logger = setup_logger(
@@ -69,6 +73,18 @@ def scan_codebase(config: Dict[str, Any], output_format: str = 'json') -> None:
         logger.debug(f"Processing: {file_path}")
         metadata = extractor.extract(file_path)
         files_data.append(metadata)
+    
+    # Generate documentation if requested
+    if write_docs or dry_run:
+        mode = "DRY RUN" if dry_run else "documentation generation"
+        logger.info(f"Starting {mode}...")
+        try:
+            doc_stats = generate_documentation(files_data, logger, dry_run=dry_run)
+            logger.info(f"{mode.capitalize()} complete: {doc_stats}")
+        except Exception as e:
+            logger.error(f"Error during {mode}: {e}")
+            print(f"\nWarning: {mode.capitalize()} failed: {e}")
+            print("Continuing with scan results...\n")
     
     # Calculate coverage report
     logger.info("Calculating documentation coverage...")
@@ -189,6 +205,18 @@ Examples:
         help='Enable verbose logging'
     )
     
+    parser.add_argument(
+        '--write-docs',
+        action='store_true',
+        help='Generate and write missing docstrings using watsonx.ai'
+    )
+    
+    parser.add_argument(
+        '--dry-run',
+        action='store_true',
+        help='Show which functions would be documented without making API calls'
+    )
+    
     args = parser.parse_args()
     
     # Load configuration
@@ -268,7 +296,8 @@ Examples:
     
     # Run scan
     try:
-        scan_codebase(config, output_format=args.format)
+        scan_codebase(config, output_format=args.format,
+                     write_docs=args.write_docs, dry_run=args.dry_run)
     except KeyboardInterrupt:
         print("\nScan interrupted by user")
         sys.exit(1)
