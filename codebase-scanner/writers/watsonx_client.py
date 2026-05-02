@@ -6,6 +6,7 @@ import sys
 import time
 import urllib.request
 import urllib.error
+import urllib.parse
 from typing import Dict, Any, Optional
 
 
@@ -19,13 +20,18 @@ class WatsonxClient:
         self.project_id = os.environ.get('WATSONX_PROJECT_ID')
         self.url = os.environ.get('WATSONX_URL', 'https://us-south.ml.cloud.ibm.com')
         
+        # IAM token caching
+        self._cached_token = None
+        self._token_expiration = None
+        self._token_buffer = 60  # Refresh token 60 seconds before expiration
+        
         if not dry_run:
             if not self.api_key or not self.project_id:
                 print("\n" + "="*60)
                 print("ERROR: Missing watsonx.ai credentials")
                 print("="*60)
                 print("Set WATSONX_API_KEY, WATSONX_PROJECT_ID, and WATSONX_URL")
-                print("environment variables — see .env.example")
+                print("environment variables — see .env.example in project root")
                 print("="*60 + "\n")
                 sys.exit(1)
         
@@ -66,8 +72,82 @@ Generate ONLY the docstring content:"""
                 return None
         return None
     
+    def _get_iam_token(self) -> str:
+        """Obtain IBM Cloud IAM access token using API key.
+        
+        Exchanges the API key for an IAM access token via IBM Cloud IAM service.
+        Caches the token and tracks expiration for automatic refresh.
+        
+        Returns:
+            str: Valid IAM access token
+            
+        Raises:
+            Exception: If token acquisition fails or API key is invalid
+        """
+        # Check if cached token is still valid
+        if self._is_token_valid():
+            return self._cached_token  # type: ignore[return-value]
+        
+        # Request new token from IBM Cloud IAM
+        iam_url = 'https://iam.cloud.ibm.com/identity/token'
+        
+        # Prepare form data for token request
+        form_data = {
+            'grant_type': 'urn:ibm:params:oauth:grant-type:apikey',
+            'apikey': self.api_key
+        }
+        data = urllib.parse.urlencode(form_data).encode('utf-8')
+        
+        headers = {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Accept': 'application/json'
+        }
+        
+        req = urllib.request.Request(iam_url, data=data, headers=headers, method='POST')
+        
+        try:
+            with urllib.request.urlopen(req, timeout=30) as response:
+                token_response = json.loads(response.read().decode('utf-8'))
+                
+                # Extract and cache token information
+                self._cached_token = token_response['access_token']
+                self._token_expiration = token_response['expiration']
+                
+                return self._cached_token
+                
+        except urllib.error.HTTPError as e:
+            error_body = e.read().decode('utf-8')
+            raise Exception(f"IAM token acquisition failed (HTTP {e.code}): {error_body}")
+        except urllib.error.URLError as e:
+            raise Exception(f"IAM token acquisition failed (URL Error): {e.reason}")
+        except (KeyError, json.JSONDecodeError) as e:
+            raise Exception(f"IAM token response parsing failed: {e}")
+    
+    def _is_token_valid(self) -> bool:
+        """Check if cached IAM token is still valid.
+        
+        Returns:
+            bool: True if token exists and hasn't expired (with buffer), False otherwise
+        """
+        if not self._cached_token or not self._token_expiration:
+            return False
+        
+        current_time = int(time.time())
+        # Token is valid if current time is before (expiration - buffer)
+        return current_time < (self._token_expiration - self._token_buffer)
+    
     def _call_api(self, prompt: str) -> Dict[str, Any]:
-        """Call watsonx.ai API using urllib.request."""
+        """Call watsonx.ai API using urllib.request with IAM token authentication.
+        
+        Args:
+            prompt (str): The prompt text to send to the API
+            
+        Returns:
+            Dict[str, Any]: API response containing generated text
+            
+        Raises:
+            Exception: If API call fails or authentication fails
+        """
         payload = {
             "model_id": self.model_id,
             "input": prompt,
@@ -82,9 +162,13 @@ Generate ONLY the docstring content:"""
         }
         
         data = json.dumps(payload).encode('utf-8')
+        
+        # Get valid IAM token (will refresh if expired)
+        iam_token = self._get_iam_token()
+        
         headers = {
             'Content-Type': 'application/json',
-            'Authorization': f'Bearer {self.api_key}',
+            'Authorization': f'Bearer {iam_token}',
             'Accept': 'application/json'
         }
         

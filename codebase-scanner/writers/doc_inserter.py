@@ -103,16 +103,25 @@ class DocInserter:
         return indent if indent else '    '
     
     def _format_docstring(self, docstring: str, indent: str) -> str:
-        """Format docstring with proper indentation and quotes."""
+        """Format docstring with proper indentation and quotes.
+        
+        Follows Google style: first line on same line as opening quotes.
+        """
         lines = docstring.split('\n')
         
-        # Build formatted docstring
-        result = f'{indent}"""\n'
-        for line in lines:
+        if not lines:
+            return f'{indent}""""""\n'
+        
+        # Build formatted docstring with first line on same line as opening quotes
+        result = f'{indent}"""{lines[0]}\n'
+        
+        # Add remaining lines
+        for line in lines[1:]:
             if line.strip():
                 result += f'{indent}{line}\n'
             else:
                 result += '\n'
+        
         result += f'{indent}"""\n'
         
         return result

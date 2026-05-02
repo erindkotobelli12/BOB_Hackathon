@@ -8,19 +8,22 @@ The `--write-docs` flag enables automatic generation of Google-style docstrings 
 
 ### 1. Configure Environment Variables
 
-Copy the example environment file and add your credentials:
+Copy the example environment file from the project root and add your credentials:
 
 ```bash
+# From the project root directory
 cp .env.example .env
 ```
 
-Edit `.env` and add your watsonx.ai credentials:
+Edit `.env` in the project root and add your watsonx.ai credentials:
 
 ```bash
 WATSONX_API_KEY=your_actual_api_key_here
 WATSONX_PROJECT_ID=your_actual_project_id_here
 WATSONX_URL=https://us-south.ml.cloud.ibm.com
 ```
+
+**Note:** The `.env` file should be in the project root directory (parent of `codebase-scanner/`), not inside the `codebase-scanner/` directory.
 
 ### 2. Verify Installation
 
@@ -136,7 +139,7 @@ Total items documented: 40
 
 ### "WATSONX_API_KEY environment variable not set"
 
-Make sure you've created a `.env` file with your credentials in the `codebase-scanner` directory.
+Make sure you've created a `.env` file with your credentials in the project root directory (see `.env.example` in the project root).
 
 ### "Error generating docstring: HTTP 401"
 
