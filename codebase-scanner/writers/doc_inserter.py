@@ -112,14 +112,25 @@ class DocInserter:
         if not lines:
             return f'{indent}""""""\n'
         
+        # Remove any leading/trailing empty lines from docstring content
+        while lines and not lines[0].strip():
+            lines.pop(0)
+        while lines and not lines[-1].strip():
+            lines.pop()
+        
+        if not lines:
+            return f'{indent}""""""\n'
+        
         # Build formatted docstring with first line on same line as opening quotes
         result = f'{indent}"""{lines[0]}\n'
         
-        # Add remaining lines
+        # Add remaining lines, preserving their relative indentation
         for line in lines[1:]:
             if line.strip():
+                # Preserve the line's content with base indentation
                 result += f'{indent}{line}\n'
             else:
+                # Keep blank lines as-is
                 result += '\n'
         
         result += f'{indent}"""\n'
